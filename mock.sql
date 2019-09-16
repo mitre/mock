@@ -1,0 +1,1 @@
+CREATE TABLE if not exists sim_response (ability_id text, paw text, response text, UNIQUE (ability_id, paw) ON CONFLICT IGNORE);

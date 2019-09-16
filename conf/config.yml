@@ -1,0 +1,38 @@
+---
+
+- paw: deathstar$darthvader
+  group: simulation
+  os: windows
+  pid: 1001
+  ppid: 1000
+  location: C:\Users\Public
+  sleep: 60
+  server: http://localhost:8888
+  architecture: ''
+  executors:
+    - pwsh
+    - psh
+
+- paw: xwing$redleader
+  group: simulation
+  os: darwin
+  pid: 2001
+  ppid: 2000
+  location: /tmp
+  sleep: 60
+  server: http://localhost:8888
+  architecture: ''
+  executors:
+    - sh
+
+- paw: millenniumfalcon$hansolo
+  group: simulation
+  os: linux
+  pid: 3001
+  ppid: 3000
+  location: /tmp
+  sleep: 60
+  server: http://localhost:8888
+  architecture: ''
+  executors:
+    - sh
