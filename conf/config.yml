@@ -1,7 +1,6 @@
 ---
 
 - paw: deathstar$darthvader
-  enabled: 1
   group: simulation
   os: windows
   location: C:\Users\Public
@@ -9,16 +8,7 @@
     - pwsh
     - psh
 
-- paw: vwing$emperor
-  enabled: 0
-  group: simulation
-  os: windows
-  location: C:\Users\Public
-  executors:
-    - psh
-
 - paw: xwing$redleader
-  enabled: 1
   group: simulation
   os: darwin
   location: /tmp
@@ -26,7 +16,6 @@
     - sh
 
 - paw: millenniumfalcon$hansolo
-  enabled: 1
   group: simulation
   os: linux
   location: /tmp
