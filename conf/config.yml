@@ -1,38 +1,34 @@
 ---
 
 - paw: deathstar$darthvader
+  enabled: 1
   group: simulation
   os: windows
-  pid: 1001
-  ppid: 1000
   location: C:\Users\Public
-  sleep: 60
-  server: http://localhost:8888
-  architecture: ''
   executors:
     - pwsh
     - psh
 
+- paw: vwing$emperor
+  enabled: 0
+  group: simulation
+  os: windows
+  location: C:\Users\Public
+  executors:
+    - psh
+
 - paw: xwing$redleader
+  enabled: 1
   group: simulation
   os: darwin
-  pid: 2001
-  ppid: 2000
   location: /tmp
-  sleep: 60
-  server: http://localhost:8888
-  architecture: ''
   executors:
     - sh
 
 - paw: millenniumfalcon$hansolo
+  enabled: 1
   group: simulation
   os: linux
-  pid: 3001
-  ppid: 3000
   location: /tmp
-  sleep: 60
-  server: http://localhost:8888
-  architecture: ''
   executors:
     - sh
