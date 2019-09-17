@@ -4,12 +4,15 @@
 - ability_id: c0da588f-79f0-4263-8998-7496b1a40596
   paws:
     - paw: deathstar$darthvader
+      status: 0
       response: |
         darthvader
     - paw: xwing$redleader
+      status: 0
       response: |
         redleader
     - paw: millenniumfalcon$hansolo
+      status: 0
       response: |
         hansolo
 
@@ -17,12 +20,15 @@
 - ability_id: 6469befa-748a-4b9c-a96d-f191fde47d89
   paws:
     - paw: deathstar$darthvader
+      status: 0
       response: |
         C:\Users\Public\staging
     - paw: xwing$redleader
+      status: 0
       response: |
         /Users/redleader/Desktop/staging
     - paw: millenniumfalcon$hansolo
+      status: 0
       response: |
         /tmp/staging
 
@@ -30,15 +36,18 @@
 - ability_id: 90c2efaa-8205-480d-8bb6-61d90dbaf81b
   paws:
     - paw: deathstar$darthvader
+      status: 0
       response: |
         C:\sample.txt
         C:\Public\sample.yml
         C:\Windows\System32\configuration.yml
     - paw: xwing$redleader
+      status: 0
       response: |
         /usr/local/bin/ansible/ansible.yml
         /Users/redleader/git.txt
     - paw: millenniumfalcon$hansolo
+      status: 0
       response: |
         /mnt/shared.txt
 
@@ -46,11 +55,14 @@
 - ability_id: 300157e5-f4ad-4569-b533-9d1fa0e74d74
   paws:
     - paw: deathstar$darthvader
+      status: 0
       response: |
         C:\Users\Public\staging.zip
     - paw: xwing$redleader
+      status: 0
       response: |
         /Users/redleader/Desktop/staging.tar.gz
     - paw: millenniumfalcon$hansolo
+      status: 0
       response: |
         /tmp/staging.tar.gz
