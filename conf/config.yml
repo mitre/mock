@@ -21,3 +21,28 @@
   location: /tmp
   executors:
     - sh
+
+- paw: enterprise$picard
+  group: simulation
+  os: windows
+  location: C:\Users\Public
+  executors:
+    - pwsh
+    - psh
+  expansion: True
+
+- paw: voyager$janeway
+  group: simulation
+  os: darwin
+  location: /tmp
+  executors:
+    - sh
+  expansion: True
+
+- paw: defiant$sisko
+  group: simulation
+  os: linux
+  location: /tmp
+  executors:
+    - sh
+  expansion: True
