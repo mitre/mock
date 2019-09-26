@@ -43,8 +43,7 @@ class MockService:
         if "|SPAWN|" in self.agent_svc.decode_bytes(sim_response[0]['response']):
             if await self._spawn_new_sim(link):
                 return self.agent_svc.encode_string('spawned new agent'), sim_response[0]['status']
-            else:
-                return self.agent_svc.encode_string('failed to spawn new agent'), 1
+            return self.agent_svc.encode_string('failed to spawn new agent'), 1
         return sim_response[0]['response'], sim_response[0]['status']
 
     async def _spawn_new_sim(self, link):
