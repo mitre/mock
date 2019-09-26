@@ -40,15 +40,27 @@ class MockService:
         sim_response = await self.data_svc.get('sim_response', dict(ability_id=ability['ability_id'], paw=paw))
         if not sim_response:
             return '', 0
-        if "|SPAWN|" in sim_response[0]['response']:
-            await self._spawn_new_sim(link)
-            return 'spawned new agent', sim_response[0]['status']
+        if "|SPAWN|" in self.agent_svc.decode_bytes(sim_response[0]['response']):
+            if await self._spawn_new_sim(link):
+                return self.agent_svc.encode_string('spawned new agent'), sim_response[0]['status']
+            else:
+                return self.agent_svc.encode_string('failed to spawn new agent'), 1
         return sim_response[0]['response'], sim_response[0]['status']
 
     async def _spawn_new_sim(self, link):
-        a = {} # need to find target and get information from self.agents
-        a['pid'], a['ppid'], a['sleep'] = randint(1000,10000), randint(1000, 10000), randint(55, 65)
-        a['architecture'] = None
-        a['server'] = 'http://localhost:8888'
+        filtered = [a for a in self.agents if 'expansion' in a]
+        run_on = (await self.data_svc.get('core_agent', dict(paw=link['paw'])))[0]
+        command_actual = self.agent_svc.decode_bytes(link['command'])
+        target = None
+        for agent in filtered:
+            box, user = agent['paw'].split('$')
+            if user in command_actual and box in command_actual and run_on['platform'] == agent['os']:
+                target = agent
+        if not target:
+            return False
+        target['pid'], target['ppid'], target['sleep'] = randint(1000,10000), randint(1000, 10000), randint(55, 65)
+        target['architecture'] = None
+        target['server'] = 'http://localhost:8888'
         loop = asyncio.get_event_loop()
-        loop.create_task(self.run(a))
+        loop.create_task(self.run(target))
+        return True
