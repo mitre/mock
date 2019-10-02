@@ -48,7 +48,7 @@ class MockService:
         sim_response = await self.data_svc.get('sim_response', dict(ability_id=ability['ability_id'], paw=paw))
         if not sim_response:
             return '', 0
-        if "|SPAWN|" in self.agent_svc.decode_bytes(sim_response[0]['response']):
+        if '|SPAWN|' in self.agent_svc.decode_bytes(sim_response[0]['response']):
             if await self._spawn_new_sim(link):
                 return self.agent_svc.encode_string('spawned new agent'), sim_response[0]['status']
             return self.agent_svc.encode_string('failed to spawn new agent'), 1
@@ -67,4 +67,3 @@ class MockService:
             return False
         await self.start_agent(target)
         return True
-    
