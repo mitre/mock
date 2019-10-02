@@ -32,6 +32,13 @@ class MockService:
     async def set_agent_listing(self, agents):
         self.agents = agents
 
+    async def start_agent(self, agent):
+        agent['pid'], agent['ppid'], agent['sleep'] = randint(1000, 10000), randint(1000, 10000), randint(55, 65)
+        agent['architecture'] = None
+        agent['server'] = 'http://localhost:8888'
+        loop = asyncio.get_event_loop()
+        loop.create_task(self.run(agent))
+
     """ PRIVATE """
 
     async def _get_simulated_response(self, link_id, paw):
@@ -47,7 +54,7 @@ class MockService:
         return sim_response[0]['response'], sim_response[0]['status']
 
     async def _spawn_new_sim(self, link):
-        filtered = [a for a in self.agents if 'expansion' in a]
+        filtered = [a for a in self.agents if not a['enabled']]
         run_on = (await self.data_svc.get('core_agent', dict(paw=link['paw'])))[0]
         command_actual = self.agent_svc.decode_bytes(link['command'])
         target = None
@@ -57,9 +64,5 @@ class MockService:
                 target = agent
         if not target:
             return False
-        target['pid'], target['ppid'], target['sleep'] = randint(1000,10000), randint(1000, 10000), randint(55, 65)
-        target['architecture'] = None
-        target['server'] = 'http://localhost:8888'
-        loop = asyncio.get_event_loop()
-        loop.create_task(self.run(target))
+        await self.start_agent(target)
         return True

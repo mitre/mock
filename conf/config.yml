@@ -4,6 +4,7 @@
   group: simulation
   os: windows
   location: C:\Users\Public
+  enabled: True
   executors:
     - pwsh
     - psh
@@ -12,6 +13,7 @@
   group: simulation
   os: darwin
   location: /tmp
+  enabled: True
   executors:
     - sh
 
@@ -19,6 +21,7 @@
   group: simulation
   os: linux
   location: /tmp
+  enabled: True
   executors:
     - sh
 
@@ -26,23 +29,23 @@
   group: simulation
   os: windows
   location: C:\Users\Public
+  enabled: False
   executors:
     - pwsh
     - psh
-  expansion: True
 
 - paw: voyager$janeway
   group: simulation
   os: darwin
   location: /tmp
+  enabled: False
   executors:
     - sh
-  expansion: True
 
 - paw: defiant$sisko
   group: simulation
   os: linux
   location: /tmp
+  enabled: False
   executors:
     - sh
-  expansion: True
