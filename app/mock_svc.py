@@ -2,6 +2,7 @@ import asyncio
 import json
 from random import randint
 
+
 class MockService:
 
     def __init__(self, services):
