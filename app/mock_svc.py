@@ -5,10 +5,11 @@ from random import randint
 
 class MockService:
 
-    def __init__(self, services):
+    def __init__(self, services, agents):
         self.agent_svc = services['agent_svc']
         self.data_svc = services['data_svc']
         self.log = services['data_svc'].add_service('simulation_svc', self)
+        self.agents = agents
 
     async def run(self, agent):
         while True:
@@ -29,9 +30,6 @@ class MockService:
                 response = dict(ability_id=simulated['ability_id'], paw=p['paw'], status=p['status'],
                                 response=self.agent_svc.encode_string(p['response']))
                 await self.data_svc.create('sim_response', response)
-
-    async def set_agent_listing(self, agents):
-        self.agents = agents
 
     async def start_agent(self, agent):
         agent['pid'], agent['ppid'], agent['sleep'] = randint(1000, 10000), randint(1000, 10000), randint(55, 65)
@@ -58,12 +56,9 @@ class MockService:
         filtered = [a for a in self.agents if not a['enabled']]
         run_on = (await self.data_svc.get('core_agent', dict(paw=link['paw'])))[0]
         command_actual = self.agent_svc.decode_bytes(link['command'])
-        target = None
         for agent in filtered:
             box, user = agent['paw'].split('$')
             if user in command_actual and box in command_actual and run_on['platform'] == agent['os']:
-                target = agent
-        if not target:
-            return False
-        await self.start_agent(target)
-        return True
+                await self.start_agent(agent)
+                return True
+        return False

@@ -7,11 +7,10 @@ address = None
 
 async def initialize(app, services):
     await services['data_svc'].load_data(schema='plugins/%s/mock.sql' % name.lower())
-    simulation_svc = MockService(services)
+    all_agents = [a for a in services.get('agent_svc').strip_yml('plugins/%s/conf/config.yml' % name.lower())[0]]
+    simulation_svc = MockService(services, all_agents)
     simulated_responses = [r for r in services.get('agent_svc').strip_yml('plugins/%s/conf/responses.yml' % name.lower())[0]]
     await simulation_svc.load_simulation_results(simulated_responses)
-    all_agents = [a for a in services.get('agent_svc').strip_yml('plugins/%s/conf/config.yml' % name.lower())[0]]
-    await simulation_svc.set_agent_listing(all_agents)
     agents = [a for a in all_agents if a['enabled']]
     for a in agents:
         await simulation_svc.start_agent(a)
