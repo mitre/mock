@@ -4,38 +4,44 @@
 - ability_id: c0da588f-79f0-4263-8998-7496b1a40596
   paws:
     - paw: deathstar$darthvader
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               darthvader
     - paw: xwing$redleader
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               redleader
     - paw: millenniumfalcon$hansolo
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               hansolo
     - paw: enterprise$picard
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               picard
     - paw: voyager$janeway
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               janeway
     - paw: defiant$sisko
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               sisko
@@ -44,38 +50,44 @@
 - ability_id: 6469befa-748a-4b9c-a96d-f191fde47d89
   paws:
     - paw: deathstar$darthvader
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               C:\Users\Public\staging
     - paw: xwing$redleader
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               /Users/redleader/Desktop/staging
     - paw: millenniumfalcon$hansolo
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               /tmp/staging
     - paw: enterprise$picard
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               C:\Users\Public\staging
     - paw: voyager$janeway
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               /Users/redleader/Desktop/staging
     - paw: defiant$sisko
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               /tmp/staging
@@ -84,44 +96,50 @@
 - ability_id: 90c2efaa-8205-480d-8bb6-61d90dbaf81b
   paws:
     - paw: deathstar$darthvader
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               C:\sample.txt
               C:\Public\sample.yml
               C:\Windows\System32\configuration.yml
     - paw: xwing$redleader
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               /usr/local/bin/ansible/ansible.yml
               /Users/redleader/git.txt
     - paw: millenniumfalcon$hansolo
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               /mnt/shared.txt
     - paw: enterprise$picard
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               C:\sample.txt
               C:\Public\sample.yml
               C:\Windows\System32\configuration.yml
     - paw: voyager$janeway
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               /usr/local/bin/ansible/ansible.yml
               /Users/janeway/git.txt
     - paw: defiant$sisko
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               /mnt/shared.txt
@@ -130,38 +148,44 @@
 - ability_id: 300157e5-f4ad-4569-b533-9d1fa0e74d74
   paws:
     - paw: deathstar$darthvader
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               C:\Users\Public\staging.zip
     - paw: xwing$redleader
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               /Users/redleader/Desktop/staging.tar.gz
     - paw: millenniumfalcon$hansolo
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               /tmp/staging.tar.gz
     - paw: enterprise$picard
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               C:\Users\Public\staging.zip
     - paw: voyager$janeway
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               /Users/janeway/Desktop/staging.tar.gz
     - paw: defiant$sisko
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               /tmp/staging.tar.gz
@@ -170,14 +194,16 @@
 - ability_id: 422526ec-27e9-429a-995b-c686a29561a4
   paws:
     - paw: xwing$redleader
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               ssh janeway@voyager
     - paw: millenniumfalcon$hansolo
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               ssh sisko@defiant
@@ -186,14 +212,16 @@
 - ability_id: c1cd6388-3ced-48c7-a511-0434c6ba8f48
   paws:
     - paw: xwing$redleader
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               redleader
     - paw: millenniumfalcon$hansolo
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               hansolo
@@ -202,14 +230,16 @@
 - ability_id: 02de522f-7e0a-4544-8afc-0c195f400f5f
   paws:
     - paw: xwing$redleader
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               ssh janeway@voyager
     - paw: millenniumfalcon$hansolo
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               ssh sisko@defiant
@@ -218,20 +248,23 @@
 - ability_id: 85341c8c-4ecb-4579-8f53-43e3e91d7617
   paws:
     - paw: deathstar$darthvader
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               128.127.126.125
     - paw: xwing$redleader
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               111.111.111.110
     - paw: millenniumfalcon$hansolo
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               3.141.59.26
@@ -240,8 +273,9 @@
 - ability_id: fa4ed735-7006-4451-a578-b516f80e559f
   paws:
     - paw: deathstar$darthvader
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               Name: enterprise
@@ -250,8 +284,9 @@
 - ability_id: fdf8bf36-797f-4157-805b-fe7c1c6fc903
   paws:
     - paw: deathstar$darthvader
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               enterprise <00> UNIQUE
@@ -260,8 +295,9 @@
 - ability_id: baac2c6d-4652-4b7e-ab0a-f1bf246edd12
   paws:
     - paw: deathstar$darthvader
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
                "* Username : picard
@@ -272,8 +308,9 @@
 - ability_id: 2a32e46f-5346-45d3-9475-52b857c05342
   paws:
     - paw: deathstar$darthvader
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               |SPAWN|
@@ -282,14 +319,16 @@
 - ability_id: 10a9d979-e342-418a-a9b0-002c483e0fa6
   paws:
     - paw: xwing$redleader
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               |SPAWN|
     - paw: millenniumfalcon$hansolo
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               |SPAWN|
@@ -298,8 +337,9 @@
 - ability_id: 41bb2b7a-75af-49fd-bd15-6c827df25921
   paws:
     - paw: deathstar$darthvader
-      - var: default
-          - default:
+      details:
+        - default: #var
+          - value: default
             status: 0
             response: |
               |SPAWN|

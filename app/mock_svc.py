@@ -28,11 +28,12 @@ class MockService:
     async def load_simulation_results(self, simulated_responses):
         for simulated in simulated_responses:
             for p in simulated['paws']:
-                for var in simulated[p]['var']:
-                    for val in simulated[p][var]:
-                        response = dict(ability_id=simulated['ability_id'], paw=p['paw'], status=p[var][val]['status'],
-                                    response=self.agent_svc.encode_string(p[var][val]['response']), var=var, val=val)
-                        await self.data_svc.create('sim_response', response)
+                for entry in p['details']:
+                    for var in entry:
+                        for val in entry[var]:
+                            response = dict(ability_id=simulated['ability_id'], paw=p['paw'], status=val['status'],
+                                    response=self.agent_svc.encode_string(val['response']), var=var, val=val['value'])
+                            await self.data_svc.create('sim_response', response)
 
     async def start_agent(self, agent):
         agent['pid'], agent['ppid'], agent['sleep'] = randint(1000, 10000), randint(1000, 10000), randint(55, 65)
@@ -44,7 +45,7 @@ class MockService:
     """ PRIVATE """
 
     async def _extract_vars(self, ability):
-        decoded_test = self.agent_svc.decode_bytes(ability['command'])
+        decoded_test = self.agent_svc.decode_bytes(ability['test'])
         variables = re.findall(r'#{(.*?)}', decoded_test, flags=re.DOTALL)
         vars = [x for x in variables if x not in ['server','paw','location','group']]
         search_set = []
@@ -64,7 +65,7 @@ class MockService:
     async def _target_response(self, vars, response_object):
         computable = dict()
         for entry in response_object:
-            computable[entry['var']] = {entry['val']: entry['response']}
+            computable[entry['var']] = {entry['val']: [entry['response'], entry['status']]}
         for v in vars:
             if v[0] in computable:
                 if v[1] in computable[v[0]]:
@@ -80,12 +81,12 @@ class MockService:
         sim_response = await self.data_svc.get('sim_response', dict(ability_id=ability['ability_id'], paw=paw))
         if not sim_response:
             return '', 0
-        targeted_response = await self._target_response(vars, sim_response)
+        targeted_response, targeted_status = await self._target_response(vars, sim_response)
         if '|SPAWN|' in self.agent_svc.decode_bytes(targeted_response):
             if await self._spawn_new_sim(link):
-                return self.agent_svc.encode_string('spawned new agent'), targeted_response[0]['status']
+                return self.agent_svc.encode_string('spawned new agent'), targeted_status
             return self.agent_svc.encode_string('failed to spawn new agent'), 1
-        return targeted_response[0]['response'], targeted_response[0]['status']
+        return targeted_response, targeted_status
 
     async def _spawn_new_sim(self, link):
         filtered = [a for a in self.agents if not a['enabled']]
