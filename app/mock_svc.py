@@ -42,6 +42,8 @@ class MockService:
 
     async def _get_simulated_response(self, link_id, paw):
         link = (await self.data_svc.get('core_chain', dict(id=link_id)))[0]
+        if link['cleanup']:
+            return '', 0
         ability = (await self.data_svc.get('core_ability', dict(id=link['ability'])))[0]
         sim_response = await self.data_svc.get('sim_response', dict(ability_id=ability['ability_id'], paw=paw))
         if not sim_response:
