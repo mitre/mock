@@ -56,7 +56,7 @@ class MockService:
 
     async def _spawn_new_sim(self, link):
         filtered = [a for a in self.agents if not a['enabled']]
-        run_on = (await self.data_svc.get('agent', dict(paw=link['paw'])))[0]
+        run_on = (await self.data_svc.locate('agents', match=dict(paw=link['paw'])))[0]
         command_actual = self.agent_svc.decode_bytes(link['command'])
         for agent in filtered:
             box, user = agent['paw'].split('$')
