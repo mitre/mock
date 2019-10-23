@@ -29,7 +29,7 @@ class MockService:
             for p in simulated['paws']:
                 response = dict(ability_id=simulated['ability_id'], paw=p['paw'], status=p['status'],
                                 response=self.agent_svc.encode_string(p['response']))
-                await self.data_svc.create('sim_response', response)
+                await self.data_svc.save('sim_response', response)
 
     async def start_agent(self, agent):
         agent['pid'], agent['ppid'], agent['sleep'] = randint(1000, 10000), randint(1000, 10000), randint(55, 65)
@@ -41,10 +41,10 @@ class MockService:
     """ PRIVATE """
 
     async def _get_simulated_response(self, link_id, paw):
-        link = (await self.data_svc.get('core_chain', dict(id=link_id)))[0]
+        link = (await self.data_svc.get('chain', dict(id=link_id)))[0]
         if link['cleanup']:
             return '', 0
-        ability = (await self.data_svc.get('core_ability', dict(id=link['ability'])))[0]
+        ability = (await self.data_svc.get('ability', dict(id=link['ability'])))[0]
         sim_response = await self.data_svc.get('sim_response', dict(ability_id=ability['ability_id'], paw=paw))
         if not sim_response:
             return '', 0
@@ -56,7 +56,7 @@ class MockService:
 
     async def _spawn_new_sim(self, link):
         filtered = [a for a in self.agents if not a['enabled']]
-        run_on = (await self.data_svc.get('core_agent', dict(paw=link['paw'])))[0]
+        run_on = (await self.data_svc.get('agent', dict(paw=link['paw'])))[0]
         command_actual = self.agent_svc.decode_bytes(link['command'])
         for agent in filtered:
             box, user = agent['paw'].split('$')
