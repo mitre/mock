@@ -1,6 +1,6 @@
 ---
 
-name: hunter
+name: worm
 responses:
   #whoami
   - ability_id: c0da588f-79f0-4263-8998-7496b1a40596
@@ -143,3 +143,110 @@ responses:
         status: 0
         response: |
           hansolo
+
+  # Parse SSH config
+  - ability_id: 02de522f-7e0a-4544-8afc-0c195f400f5f
+    paws:
+      - paw: xwing$redleader
+        status: 0
+        response: |
+          ssh janeway@voyager
+      - paw: millenniumfalcon$hansolo
+        status: 0
+        response: |
+          ssh sisko@defiant
+
+  # Collect ARP details
+  - ability_id: 85341c8c-4ecb-4579-8f53-43e3e91d7617
+    paws:
+      - paw: deathstar$darthvader
+        status: 0
+        response: |
+          128.127.126.125
+      - paw: xwing$redleader
+        status: 0
+        response: |
+          111.111.111.110
+      - paw: millenniumfalcon$hansolo
+        status: 0
+        response: |
+          3.141.59.26
+
+  # Reverse nslookup IP
+  - ability_id: fa4ed735-7006-4451-a578-b516f80e559f
+    paws:
+      - paw: deathstar$darthvader
+        status: 0
+        response: |
+          Name: enterprise
+
+  # Find Hostname
+  - ability_id: fdf8bf36-797f-4157-805b-fe7c1c6fc903
+    paws:
+      - paw: deathstar$darthvader
+        status: 0
+        response: |
+         enterprise <00> UNIQUE
+
+  # Run PowerKatz
+  - ability_id: baac2c6d-4652-4b7e-ab0a-f1bf246edd12
+    paws:
+      - paw: deathstar$darthvader
+        status: 0
+        response: |
+         "Authentication Id : 0 ; 1101098 (00000000:0010cd2a)
+         Session           : Interactive from 1
+         User Name         : deathstar
+         Domain            : sim/sim
+         Logon Server      : coruscant
+         Logon Time        : 11/22/3333 12:05:05 PM
+         SID               : S-1-5-21-1142828884-3170888836-2977577925-1106
+          msv :
+            [00000003] Primary
+             * Username : picard
+             * Domain   : sim/sim
+             * LM       : 921988ba001dc8e14a3b108f3fa6cb6d
+             * NTLM     : e19ccf75ee54e06b06a5907af13cef42
+             * SHA1     : 9131834cf4378828626b1beccaa5dea2c46f9b63
+            tspkg :
+             * Username : picard
+             * Domain   : sim/sim
+             * Password : MakeItSo
+            wdigest :
+             * Username : picard
+             * Domain   : sim/sim
+             * Password : MakeItSo
+            kerberos :
+             * Username : picard
+             * Domain   : sim/sim
+             * Password : MakeItSo
+            ssp :
+            credman :	"
+
+  # Start 54ndc47 (WMI)
+  - ability_id: 2a32e46f-5346-45d3-9475-52b857c05342
+    paws:
+      - paw: deathstar$darthvader
+        status: 0
+        response: |
+          |SPAWN|
+
+  # Start 54ndc47
+  - ability_id: 10a9d979-e342-418a-a9b0-002c483e0fa6
+    paws:
+      - paw: xwing$redleader
+        status: 0
+        response: |
+          |SPAWN|
+      - paw: millenniumfalcon$hansolo
+        status: 0
+        response: |
+          |SPAWN|
+
+  # Start Agent (WinRM)
+  - ability_id: 41bb2b7a-75af-49fd-bd15-6c827df25921
+    paws:
+      - paw: deathstar$darthvader
+        status: 0
+        response: |
+          |SPAWN|
