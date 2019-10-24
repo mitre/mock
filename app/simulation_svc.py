@@ -2,16 +2,33 @@ import asyncio
 import json
 from random import randint
 
+from app.service.base_service import BaseService
 
-class SimulationService:
 
-    def __init__(self, services, agents):
+class SimulationService(BaseService):
+
+    def __init__(self, services, agents, loaded_scenario):
         self.agent_svc = services['agent_svc']
         self.data_svc = services['data_svc']
         self.log = services['data_svc'].add_service('simulation_svc', self)
         self.agents = agents
+        self.loaded_scenario = loaded_scenario
+
+    async def apply_scenario(self, scenario):
+        """
+        Change the simulated scenario
+        :param scenario:
+        :return:
+        """
+        self.log.debug('Applying new scenario: %s' % scenario)
+        self.loaded_scenario = scenario
 
     async def run(self, agent):
+        """
+        Run a simulated agent
+        :param agent:
+        :return:
+        """
         while True:
             await self.agent_svc.handle_heartbeat(agent['paw'], agent['os'], agent['server'], agent['group'],
                                                   agent['executors'], agent['architecture'], agent['location'],
@@ -25,6 +42,11 @@ class SimulationService:
             await asyncio.sleep(agent['sleep'])
 
     async def start_agent(self, agent):
+        """
+        Create a new agent
+        :param agent:
+        :return:
+        """
         agent['pid'], agent['ppid'], agent['sleep'] = randint(1000, 10000), randint(1000, 10000), randint(55, 65)
         agent['architecture'] = None
         agent['server'] = 'http://localhost:8888'
@@ -38,7 +60,8 @@ class SimulationService:
         if link['cleanup']:
             return '', 0
         ability = (await self.data_svc.get('ability', dict(id=link['ability'])))[0]
-        sim_responses = await self.data_svc.locate('simulations', match=dict(ability_id=ability['ability_id'], paw=paw))
+        search = dict(name=self.loaded_scenario, ability_id=ability['ability_id'], paw=paw)
+        sim_responses = await self.data_svc.locate('simulations', search)
         if not sim_responses:
             return '', 0
         if '|SPAWN|' in self.agent_svc.decode_bytes(sim_responses[0].response):
