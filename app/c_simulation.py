@@ -5,11 +5,11 @@ class Simulation(BaseObject):
 
     @property
     def unique(self):
-        return hash('%s%s%s' % (self.name, self.ability_id, self.paw))
+        return self.hash('%s%s%s' % (self.name, self.ability_id, self.paw))
 
     @property
     def display(self):
-        return dict()
+        return dict(name=self.name, ability_id=self.ability_id, paw=self.paw, status=self.status, response=self.response)
 
     def __init__(self, name, ability_id, paw, status, response):
         self.name = name
