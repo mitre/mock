@@ -1,6 +1,7 @@
 ---
 
 name: hunter
+type: advanced
 responses:
   #whoami
   - ability_id: c0da588f-79f0-4263-8998-7496b1a40596
