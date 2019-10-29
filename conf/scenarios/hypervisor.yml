@@ -1,0 +1,23 @@
+---
+
+name: hypervisor
+type: advanced
+responses:
+  #enumerate vms
+  - ability_id: 0093c0e0-68b6-4cab-b0d4-2b40b3c78f71
+    paws:
+      - paw: acrn$acrn
+        status: 0
+        response: |
+           VM NAME                    VM ID       VM STATE
+           =======                    =====       ========
+           ACRN_VM                      0         Started
+           Mission_Critical_VM          1         Started
+
+  #shutdown VM
+  - ability_id: 465be689-2520-4700-8922-a2610deb1bf0
+    paws:
+      - paw: acrn$acrn
+        status: 0
+        response: |
+         vm shutdown
