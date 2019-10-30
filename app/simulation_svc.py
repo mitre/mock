@@ -60,7 +60,7 @@ class SimulationService(BaseService):
         if link['cleanup']:
             return '', 0
         ability = (await self.data_svc.locate('abilities', match=dict(unique=link['ability'])))[0]
-        search = dict(name=self.loaded_scenario, ability_id=ability['ability_id'], paw=paw)
+        search = dict(name=self.loaded_scenario, ability_id=ability.ability_id, paw=paw)
         sim_responses = await self.data_svc.locate('simulations', search)
         if not sim_responses:
             return '', 0
