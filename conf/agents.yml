@@ -5,6 +5,7 @@
   os: windows
   location: C:\Users\Public
   enabled: True
+  privilege: User
   executors:
     - pwsh
     - psh
@@ -14,6 +15,7 @@
   os: darwin
   location: /tmp
   enabled: True
+  privilege: Elevated
   executors:
     - sh
 
@@ -22,6 +24,7 @@
   os: linux
   location: /tmp
   enabled: True
+  privilege: User
   executors:
     - sh
 
@@ -30,6 +33,7 @@
   os: windows
   location: C:\Users\Public
   enabled: False
+  privilege: Elevated
   executors:
     - pwsh
     - psh
@@ -39,6 +43,7 @@
   os: darwin
   location: /tmp
   enabled: False
+  privilege: User
   executors:
     - sh
 
@@ -47,5 +52,6 @@
   os: linux
   location: /tmp
   enabled: False
+  privilege: User
   executors:
     - sh
