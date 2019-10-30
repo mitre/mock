@@ -42,8 +42,8 @@ async def _load_advanced_scenario(simulation, services):
 
 
 async def _load_basic_scenario(simulation, services):
-    all_abilities = [dict(ability_id=a['ability_id'], tactic=a['tactic'], technique=a['technique_id'])
-                     for a in await services.get('data_svc').get('ability')]
+    all_abilities = [dict(ability_id=a.ability_id, tactic=a.tactic, technique=a.technique_id)
+                     for a in await services.get('data_svc').locate('abilities')]
     for r in simulation['responses']:
         for ability in all_abilities:
             if ability['tactic'] == r['tactic'] and ability['technique'] == r['technique']['id']:
