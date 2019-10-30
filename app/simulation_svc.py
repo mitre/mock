@@ -32,7 +32,7 @@ class SimulationService(BaseService):
         while True:
             await self.agent_svc.handle_heartbeat(agent['paw'], agent['os'], agent['server'], agent['group'],
                                                   agent['executors'], agent['architecture'], agent['location'],
-                                                  agent['pid'], agent['ppid'], agent['sleep'])
+                                                  agent['pid'], agent['ppid'], agent['sleep'], agent['privilege'])
             instructions = json.loads(await self.agent_svc.get_instructions(agent['paw']))
             for i in instructions:
                 instruction = json.loads(i)
