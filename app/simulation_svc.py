@@ -37,7 +37,7 @@ class SimulationService(BaseService):
             for i in instructions:
                 instruction = json.loads(i)
                 response, status = await self._get_simulated_response(instruction['id'], agent['paw'])
-                await self.agent_svc.save_results(instruction['id'], response, status)
+                await self.agent_svc.save_results(instruction['id'], response, status, agent['pid'])
                 await asyncio.sleep(instruction['sleep'])
             await asyncio.sleep(agent['sleep'])
 
