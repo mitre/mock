@@ -55,3 +55,12 @@
   privilege: User
   executors:
     - sh
+
+- paw: acrn$acrn
+  group: hypervisor
+  os: linux
+  location: /tmp
+  enabled: True
+  privilege: User
+  executors:
+    - sh
