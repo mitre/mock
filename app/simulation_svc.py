@@ -2,7 +2,7 @@ import asyncio
 import json
 from random import randint
 
-from app.service.base_service import BaseService
+from app.utility.base_service import BaseService
 
 
 class SimulationService(BaseService):
@@ -10,7 +10,7 @@ class SimulationService(BaseService):
     def __init__(self, services, agents, loaded_scenario):
         self.agent_svc = services['agent_svc']
         self.data_svc = services['data_svc']
-        self.log = services['data_svc'].add_service('simulation_svc', self)
+        self.log = self.add_service('simulation_svc', self)
         self.agents = agents
         self.loaded_scenario = loaded_scenario
 
@@ -30,16 +30,19 @@ class SimulationService(BaseService):
         :return:
         """
         while True:
-            await self.agent_svc.handle_heartbeat(agent['paw'], agent['os'], agent['server'], agent['group'],
-                                                  agent['executors'], agent['architecture'], agent['location'],
-                                                  agent['pid'], agent['ppid'], agent['sleep'], agent['privilege'])
-            instructions = json.loads(await self.agent_svc.get_instructions(agent['paw']))
-            for i in instructions:
-                instruction = json.loads(i)
-                response, status = await self._get_simulated_response(instruction['id'], agent['paw'])
-                await self.agent_svc.save_results(instruction['id'], response, status, agent['pid'])
-                await asyncio.sleep(instruction['sleep'])
-            await asyncio.sleep(agent['sleep'])
+            try:
+                await self.agent_svc.handle_heartbeat(agent['paw'], agent['os'], agent['server'], agent['group'],
+                                                      agent['executors'], agent['architecture'], agent['location'],
+                                                      agent['pid'], agent['ppid'], agent['sleep'], agent['privilege'])
+                instructions = json.loads(await self.agent_svc.get_instructions(agent['paw']))
+                for i in instructions:
+                    instruction = json.loads(i)
+                    response, status = await self._get_simulated_response(instruction['id'], agent['paw'])
+                    await self.agent_svc.save_results(instruction['id'], response, status, agent['pid'])
+                    await asyncio.sleep(instruction['sleep'])
+                await asyncio.sleep(agent['sleep'])
+            except Exception as e:
+                print(e)
 
     async def start_agent(self, agent):
         """
@@ -56,19 +59,20 @@ class SimulationService(BaseService):
     """ PRIVATE """
 
     async def _get_simulated_response(self, link_id, paw):
-        link = (await self.data_svc.get('chain', dict(id=link_id)))[0]
-        if link['cleanup']:
-            return '', 0
-        ability = (await self.data_svc.locate('abilities', match=dict(unique=link['ability'])))[0]
-        search = dict(name=self.loaded_scenario, ability_id=ability.ability_id, paw=paw)
-        sim_responses = await self.data_svc.locate('simulations', search)
-        if not sim_responses:
-            return '', 0
-        if '|SPAWN|' in self.agent_svc.decode_bytes(sim_responses[0].response):
-            if await self._spawn_new_sim(link):
-                return self.agent_svc.encode_string('spawned new agent'), sim_responses[0].status
-            return self.agent_svc.encode_string('failed to spawn new agent'), 1
-        return sim_responses[0].response, sim_responses[0].status
+        for op in await self.data_svc.locate('operations'):
+            link = next((link for link in op.chain if link.id == link_id), None)
+            if link.cleanup:
+                return '', 0
+            ability = (await self.data_svc.locate('abilities', match=dict(unique=link.ability.unique)))[0]
+            search = dict(name=self.loaded_scenario, ability_id=ability.ability_id, paw=paw)
+            sim_responses = await self.data_svc.locate('simulations', search)
+            if not sim_responses:
+                return '', 0
+            if '|SPAWN|' in self.agent_svc.decode_bytes(sim_responses[0].response):
+                if await self._spawn_new_sim(link):
+                    return self.agent_svc.encode_string('spawned new agent'), sim_responses[0].status
+                return self.agent_svc.encode_string('failed to spawn new agent'), 1
+            return sim_responses[0].response, sim_responses[0].status
 
     async def _spawn_new_sim(self, link):
         filtered = [a for a in self.agents if not a['enabled']]
