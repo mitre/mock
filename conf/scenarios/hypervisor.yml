@@ -1,0 +1,46 @@
+---
+
+name: hypervisor
+type: advanced
+responses:
+  #enumerate vms
+  - ability_id: 0093c0e0-68b6-4cab-b0d4-2b40b3c78f71
+    paws:
+      - paw: acrn$acrn
+        status: 0
+        response: |
+           VM NAME                    VM ID       VM STATE
+           =======                    =====       ========
+           ACRN_VM                      0         Started
+           Mission_Critical_VM          1         Started
+  #shutdown VM
+  - ability_id: 465be689-2520-4700-8922-a2610deb1bf0
+    paws:
+      - paw: acrn$acrn
+        status: 0
+        response: |
+         vm shutdown
+
+  # enumerate open services
+  - ability_id: 47abe1f5-55a5-46cc-8cad-506dac8ea6d9
+    paws:
+      - paw: acrn$acrn
+        status: 0
+        response: |
+           127.0.0.1:22
+
+  #interact with open services
+  - ability_id: 3a2ce3d5-e9e2-4344-ae23-470432ff8687
+    paws:
+        - paw: acrn$acrn
+          status: 0
+          response: |
+            Starting Nmap 7.70 ( https://nmap.org ) at 2019-10-31 09:31 EDT
+            Nmap scan report for localhost (127.0.0.1)
+            Host is up (0.00022s latency).
+
+            PORT   STATE SERVICE VERSION
+            22/tcp open  ssh     OpenSSH 7.9 (protocol 2.0)
+
+            Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+            Nmap done: 1 IP address (1 host up) scanned in 0.43 seconds
