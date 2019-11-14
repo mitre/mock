@@ -3,6 +3,7 @@ import json
 from random import randint
 
 from app.utility.base_service import BaseService
+from app.objects.c_agent import Agent
 
 
 class SimulationService(BaseService):
@@ -27,33 +28,38 @@ class SimulationService(BaseService):
     async def run(self, agent):
         """
         Run a simulated agent
-        :param agent:
+        :param agent: as loaded from /mock/conf/agents.yaml and then
+         modified locally
         :return:
         """
         while True:
             try:
-                await self.agent_svc.handle_heartbeat(agent['paw'], agent['os'], agent['server'], agent['group'],
-                                                      agent['executors'], agent['architecture'], agent['location'],
-                                                      agent['pid'], agent['ppid'], agent['sleep'], agent['privilege'])
-                instructions = json.loads(await self.agent_svc.get_instructions(agent['paw']))
+                await self.agent_svc.handle_heartbeat(agent.paw, agent.platform, agent.server, agent.group, agent.host,
+                                                      agent.username, agent.executors, agent.architecture,
+                                                      agent.location, agent.pid, agent.ppid,
+                                                      await agent.calculate_sleep(), agent.privilege)
+                instructions = json.loads(await self.agent_svc.get_instructions(agent.paw))
                 for i in instructions:
                     instruction = json.loads(i)
-                    response, status = await self._get_simulated_response(instruction['id'], agent['paw'])
-                    await self.agent_svc.save_results(instruction['id'], response, status, agent['pid'])
+                    response, status = await self._get_simulated_response(instruction['id'], agent.paw)
+                    await self.agent_svc.save_results(instruction['id'], response, status, agent.pid)
                     await asyncio.sleep(instruction['sleep'])
-                await asyncio.sleep(agent['sleep'])
+                await asyncio.sleep(await agent.calculate_sleep())
+                agent = (await self.data_svc.locate('agents', match=dict(paw=agent.paw)))[0]
             except Exception as e:
                 print(e)
 
     async def start_agent(self, agent):
         """
         Create a new agent
-        :param agent:
+        :param agent: as loaded from /mock/conf/agents.yaml
         :return:
         """
-        agent['pid'], agent['ppid'], agent['sleep'] = randint(1000, 10000), randint(1000, 10000), randint(55, 65)
-        agent['architecture'] = None
-        agent['server'] = 'http://localhost:8888'
+        agent = Agent(paw=str(agent['paw']), host=agent['host'], username=agent['username'], group=agent['group'],
+                      platform=agent['platform'], server='http://localhost:8888', location=agent['location'],
+                      executors=agent['executors'], architecture=None, pid=randint(1000, 10000),
+                      ppid=randint(1000, 10000), privilege=agent['privilege'])
+        agent.sleep_min = agent.sleep_max = randint(55, 65)
         loop = asyncio.get_event_loop()
         loop.create_task(self.run(agent))
 
