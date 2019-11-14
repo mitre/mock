@@ -29,7 +29,7 @@ class SimulationService(BaseService):
         """
         Run a simulated agent
         :param agent: as loaded from /mock/conf/agents.yaml and then
-         modified locally (i.e. not c_agent object)
+         modified locally
         :return:
         """
         while True:
