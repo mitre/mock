@@ -1,8 +1,10 @@
 ---
 
-- paw: deathstar$darthvader
+- paw: 12496580262397793096
+  username: darthvader
+  host: deathstar
   group: simulation
-  os: windows
+  platform: windows
   location: C:\Users\Public
   enabled: True
   privilege: User
@@ -10,27 +12,33 @@
     - pwsh
     - psh
 
-- paw: xwing$redleader
+- paw: 12496580262397793095
+  username: redleader
+  host: xwing
   group: simulation
-  os: darwin
+  platform: darwin
   location: /tmp
   enabled: True
   privilege: Elevated
   executors:
     - sh
 
-- paw: millenniumfalcon$hansolo
+- paw: 12496580262397793094
+  username: hansolo
+  host: millenniumfalcon
   group: simulation
-  os: linux
+  platform: linux
   location: /tmp
   enabled: True
   privilege: User
   executors:
     - sh
 
-- paw: enterprise$picard
+- paw: 12496580262397793093
+  username: picard
+  host: enterprise
   group: simulation
-  os: windows
+  platform: windows
   location: C:\Users\Public
   enabled: False
   privilege: Elevated
@@ -38,27 +46,33 @@
     - pwsh
     - psh
 
-- paw: voyager$janeway
+- paw: 12496580262397793092
+  username: janeway
+  host: voyager
   group: simulation
-  os: darwin
+  platform: darwin
   location: /tmp
   enabled: False
   privilege: User
   executors:
     - sh
 
-- paw: defiant$sisko
+- paw: 12496580262397793091
+  username: sisko
+  host: defiant
   group: simulation
-  os: linux
+  platform: linux
   location: /tmp
   enabled: False
   privilege: User
   executors:
     - sh
 
-- paw: acrn$acrn
+- paw: 12496580262397793090
+  username: acrn
+  host: acrn
   group: hypervisor
-  os: linux
+  platform: linux
   location: /tmp
   enabled: True
   privilege: User
