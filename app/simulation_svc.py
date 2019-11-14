@@ -27,30 +27,33 @@ class SimulationService(BaseService):
     async def run(self, agent):
         """
         Run a simulated agent
-        :param agent:
+        :param agent: as loaded from /mock/conf/agents.yaml and then
+         modified locally (i.e. not c_agent object)
         :return:
         """
         while True:
             try:
-                await self.agent_svc.handle_heartbeat(agent['paw'], agent['os'], agent['server'], agent['group'],
-                                                      agent['executors'], agent['architecture'], agent['location'],
-                                                      agent['pid'], agent['ppid'], agent['sleep'], agent['privilege'])
-                instructions = json.loads(await self.agent_svc.get_instructions(agent['paw']))
+                await self.agent_svc.handle_heartbeat(agent["paw"], agent["platform"], agent["server"], agent["group"],
+                                                      agent["host"], agent["username"], agent["executors"],
+                                                      agent["architecture"], agent["location"], agent["pid"], agent["ppid"],
+                                                      agent["sleep"], agent["privilege"])
+                instructions = json.loads(await self.agent_svc.get_instructions(agent["paw"]))
                 for i in instructions:
                     instruction = json.loads(i)
-                    response, status = await self._get_simulated_response(instruction['id'], agent['paw'])
-                    await self.agent_svc.save_results(instruction['id'], response, status, agent['pid'])
+                    response, status = await self._get_simulated_response(instruction['id'], agent["paw"])
+                    await self.agent_svc.save_results(instruction['id'], response, status, agent["pid"])
                     await asyncio.sleep(instruction['sleep'])
-                await asyncio.sleep(agent['sleep'])
+                await asyncio.sleep(self.jitter("2/3"))
             except Exception as e:
                 print(e)
 
     async def start_agent(self, agent):
         """
         Create a new agent
-        :param agent:
+        :param agent: as loaded from /mock/conf/agents.yaml (i.e. not c_agent object)
         :return:
         """
+        agent["paw"] = str(agent["paw"])
         agent['pid'], agent['ppid'], agent['sleep'] = randint(1000, 10000), randint(1000, 10000), randint(55, 65)
         agent['architecture'] = None
         agent['server'] = 'http://localhost:8888'
