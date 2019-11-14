@@ -3,6 +3,7 @@ import json
 from random import randint
 
 from app.utility.base_service import BaseService
+from app.objects.c_agent import Agent
 
 
 class SimulationService(BaseService):
@@ -33,18 +34,19 @@ class SimulationService(BaseService):
         """
         while True:
             try:
-                await self.agent_svc.handle_heartbeat(agent["paw"], agent["platform"], agent["server"],
-                                                      agent["group"], agent["host"], agent["username"],
-                                                      agent["executors"], agent["architecture"],
-                                                      agent["location"], agent["pid"], agent["ppid"],
-                                                      agent["sleep"], agent["privilege"])
-                instructions = json.loads(await self.agent_svc.get_instructions(agent["paw"]))
+                await self.agent_svc.handle_heartbeat(agent['paw'], agent['platform'], agent['server'],
+                                                      agent['group'], agent['host'], agent['username'],
+                                                      agent['executors'], agent['architecture'],
+                                                      agent['location'], agent['pid'], agent['ppid'],
+                                                      agent['sleep'], agent['privilege'])
+                agent_object = (await self.data_svc.locate('agents', match=dict(paw=agent['paw'])))[0]
+                instructions = json.loads(await self.agent_svc.get_instructions(agent['paw']))
                 for i in instructions:
                     instruction = json.loads(i)
-                    response, status = await self._get_simulated_response(instruction['id'], agent["paw"])
-                    await self.agent_svc.save_results(instruction['id'], response, status, agent["pid"])
+                    response, status = await self._get_simulated_response(instruction['id'], agent['paw'])
+                    await self.agent_svc.save_results(instruction['id'], response, status, agent['pid'])
                     await asyncio.sleep(instruction['sleep'])
-                await asyncio.sleep(self.jitter("2/3"))
+                await asyncio.sleep(await agent_object.calculate_sleep())
             except Exception as e:
                 print(e)
 
@@ -54,7 +56,7 @@ class SimulationService(BaseService):
         :param agent: as loaded from /mock/conf/agents.yaml (i.e. not c_agent object)
         :return:
         """
-        agent["paw"] = str(agent["paw"])
+        agent['paw'] = str(agent['paw'])
         agent['pid'], agent['ppid'], agent['sleep'] = randint(1000, 10000), randint(1000, 10000), randint(55, 65)
         agent['architecture'] = None
         agent['server'] = 'http://localhost:8888'
