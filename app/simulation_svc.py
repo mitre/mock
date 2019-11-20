@@ -9,7 +9,6 @@ from app.objects.c_agent import Agent
 class SimulationService(BaseService):
 
     def __init__(self, services, agents, loaded_scenario):
-        self.agent_svc = services['agent_svc']
         self.data_svc = services['data_svc']
         self.app_svc = services['app_svc']
         self.log = self.add_service('simulation_svc', self)
@@ -34,15 +33,16 @@ class SimulationService(BaseService):
         """
         while True:
             try:
-                await self.agent_svc.handle_heartbeat(agent.paw, agent.platform, agent.server, agent.group, agent.host,
-                                                      agent.username, agent.executors, agent.architecture,
-                                                      agent.location, agent.pid, agent.ppid,
-                                                      await agent.calculate_sleep(), agent.privilege)
-                instructions = json.loads(await self.agent_svc.get_instructions(agent.paw))
+                c2 = (await self.data_svc.locate('c2', match=dict(name=agent.c2)))[0]
+                await c2.handle_heartbeat(agent.paw, agent.platform, agent.server, agent.group, agent.host,
+                                          agent.username, agent.executors, agent.architecture, agent.location,
+                                          agent.pid, agent.ppid, await agent.calculate_sleep(), agent.privilege,
+                                          agent.c2)
+                instructions = json.loads(await c2.get_instructions(agent.paw))
                 for i in instructions:
                     instruction = json.loads(i)
                     response, status = await self._get_simulated_response(instruction['id'], agent.paw)
-                    await self.agent_svc.save_results(instruction['id'], response, status, agent.pid)
+                    await c2.save_results(instruction['id'], response, status, agent.pid)
                     await asyncio.sleep(instruction['sleep'])
                 await asyncio.sleep(await agent.calculate_sleep())
                 agent = (await self.data_svc.locate('agents', match=dict(paw=agent.paw)))[0]
@@ -58,7 +58,7 @@ class SimulationService(BaseService):
         agent = Agent(paw=str(agent['paw']), host=agent['host'], username=agent['username'], group=agent['group'],
                       platform=agent['platform'], server='http://localhost:8888', location=agent['location'],
                       executors=agent['executors'], architecture=None, pid=randint(1000, 10000),
-                      ppid=randint(1000, 10000), privilege=agent['privilege'])
+                      ppid=randint(1000, 10000), privilege=agent['privilege'], c2=agent['c2'])
         agent.sleep_min = agent.sleep_max = randint(55, 65)
         loop = asyncio.get_event_loop()
         loop.create_task(self.run(agent))
@@ -74,16 +74,16 @@ class SimulationService(BaseService):
         sim_responses = await self.data_svc.locate('simulations', search)
         if not sim_responses:
             return '', 0
-        if '|SPAWN|' in self.agent_svc.decode_bytes(sim_responses[0].response):
+        if '|SPAWN|' in self.decode_bytes(sim_responses[0].response):
             if await self._spawn_new_sim(link):
-                return self.agent_svc.encode_string('spawned new agent'), sim_responses[0].status
-            return self.agent_svc.encode_string('failed to spawn new agent'), 1
+                return self.encode_string('spawned new agent'), sim_responses[0].status
+            return self.encode_string('failed to spawn new agent'), 1
         return sim_responses[0].response, sim_responses[0].status
 
     async def _spawn_new_sim(self, link):
         filtered = [a for a in self.agents if not a['enabled']]
         run_on = (await self.data_svc.locate('agents', match=dict(paw=link['paw'])))[0]
-        command_actual = self.agent_svc.decode_bytes(link['command'])
+        command_actual = self.decode_bytes(link['command'])
         for agent in filtered:
             box, user = agent['paw'].split('$')
             if user in command_actual and box in command_actual and run_on['platform'] == agent['os']:
