@@ -11,7 +11,8 @@ address = '/plugin/mock/gui'
 
 async def initialize(app, services):
     app.router.add_static('/mock', 'plugins/mock/static/', append_version=True)
-    all_agents = [a for a in services.get('agent_svc').strip_yml('plugins/mock/conf/agents.yml')[0]]
+
+    all_agents = [a for a in services.get('data_svc').strip_yml('plugins/mock/conf/agents.yml')[0]]
     await services.get('data_svc').apply(collection='simulations')
     await _load_simulations(services)
     simulation_svc = SimulationService(services, all_agents, loaded_scenario='hunter')
@@ -36,7 +37,7 @@ async def _load_advanced_scenario(simulation, services):
         for paw in r['paws']:
             encoded_response = services.get('data_svc').encode_string(paw['response'])
             await services.get('data_svc').store(
-                Simulation(name=simulation['name'], ability_id=r['ability_id'], paw=paw['paw'],
+                Simulation(name=simulation['name'], ability_id=r['ability_id'], paw=str(paw['paw']),
                            status=paw.get('status'), response=encoded_response)
             )
 
@@ -49,6 +50,6 @@ async def _load_basic_scenario(simulation, services):
             if ability['tactic'] == r['tactic'] and ability['technique'] == r['technique']['id']:
                 for paw in r['paws']:
                     await services.get('data_svc').store(
-                        Simulation(name=simulation['name'], ability_id=ability['ability_id'], paw=paw,
+                        Simulation(name=simulation['name'], ability_id=ability['ability_id'], paw=str(paw),
                                    status=r['status'], response='')
                     )
