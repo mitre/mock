@@ -11,8 +11,7 @@ class SimulationApi:
     async def landing(self, request):
         await self.services.get('auth_svc').check_permissions(request)
         simulations = set([s.name for s in await self.services.get('data_svc').locate('simulations')])
-        plugins = [dict(name=getattr(p, 'name'), address=getattr(p, 'address'))
-                   for p in self.services.get('app_svc').get_plugins()]
+        plugins = await self.services.get('data_svc').locate('plugins', match=dict(enabled=True))
         loaded_scenario = self.services.get('simulation_svc').loaded_scenario
         return dict(plugins=plugins, scenarios=simulations, loaded_scenario=loaded_scenario)
 

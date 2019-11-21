@@ -7,6 +7,7 @@ from plugins.mock.app.simulation_svc import SimulationService
 name = 'Mock'
 description = 'Simulated scenarios for testing operations with no external dependencies'
 address = '/plugin/mock/gui'
+enabled = False
 
 
 async def initialize(app, services):
