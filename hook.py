@@ -5,7 +5,7 @@ from plugins.mock.app.simulation_api import SimulationApi
 from plugins.mock.app.simulation_svc import SimulationService
 
 name = 'Mock'
-description = 'Simulated scenarios for testing operations with no external dependencies'
+description = 'Simulated scenarios for testing operations without requiring deployed agents'
 address = '/plugin/mock/gui'
 
 
