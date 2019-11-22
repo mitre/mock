@@ -1,5 +1,7 @@
 import asyncio
 import json
+import traceback
+
 from random import randint
 
 from app.utility.base_service import BaseService
@@ -46,8 +48,8 @@ class SimulationService(BaseService):
                     await asyncio.sleep(instruction['sleep'])
                 await asyncio.sleep(await agent.calculate_sleep())
                 agent = (await self.data_svc.locate('agents', match=dict(paw=agent.paw)))[0]
-            except Exception as e:
-                print(e)
+            except Exception:
+                print(traceback.print_exc())
 
     async def start_agent(self, agent):
         """
@@ -59,6 +61,7 @@ class SimulationService(BaseService):
                       platform=agent['platform'], server='http://localhost:8888', location=agent['location'],
                       executors=agent['executors'], architecture=None, pid=randint(1000, 10000),
                       ppid=randint(1000, 10000), privilege=agent['privilege'], c2=agent['c2'])
+        await self.data_svc.store(agent)
         agent.sleep_min = agent.sleep_max = randint(55, 65)
         loop = asyncio.get_event_loop()
         loop.create_task(self.run(agent))
