@@ -47,7 +47,7 @@ class SimulationService(BaseService):
                     await c2.save_results(instruction['id'], response, status, agent.pid)
                     await asyncio.sleep(instruction['sleep'])
                 await asyncio.sleep(await agent.calculate_sleep())
-                agent = (await self.data_svc.locate('agents', match=dict(paw=agent.paw)))[0]
+                agent = (await self.data_svc.locate('agents', match=dict(paw=str(agent.paw))))[0]
             except Exception:
                 print(traceback.print_exc())
 
