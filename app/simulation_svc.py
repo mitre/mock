@@ -60,7 +60,7 @@ class SimulationService(BaseService):
         agent = Agent(paw=str(agent['paw']), host=agent['host'], username=agent['username'], group=agent['group'],
                       platform=agent['platform'], server='http://localhost:8888', location=agent['location'],
                       executors=agent['executors'], architecture=None, pid=randint(1000, 10000),
-                      ppid=randint(1000, 10000), privilege=agent['privilege'], c2=agent['c2'])
+                      ppid=randint(1000, 10000), privilege=agent['privilege'], c2=agent['c2'], trusted=True)
         await self.data_svc.store(agent)
         agent.sleep_min = agent.sleep_max = randint(55, 65)
         loop = asyncio.get_event_loop()
