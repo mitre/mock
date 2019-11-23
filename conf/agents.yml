@@ -1,6 +1,6 @@
 ---
 
-- paw: 12496580262397793096
+- paw: 1234
   username: darthvader
   host: deathstar
   group: simulation
@@ -13,7 +13,7 @@
     - pwsh
     - psh
 
-- paw: 12496580262397793095
+- paw: 4321
   username: redleader
   host: xwing
   group: simulation
@@ -25,7 +25,7 @@
   executors:
     - sh
 
-- paw: 12496580262397793094
+- paw: 5521
   username: hansolo
   host: millenniumfalcon
   group: simulation
@@ -37,7 +37,7 @@
   executors:
     - sh
 
-- paw: 12496580262397793093
+- paw: 5434
   username: picard
   host: enterprise
   group: simulation
@@ -50,7 +50,7 @@
     - pwsh
     - psh
 
-- paw: 12496580262397793092
+- paw: 5555
   username: janeway
   host: voyager
   group: simulation
@@ -62,7 +62,7 @@
   executors:
     - sh
 
-- paw: 12496580262397793091
+- paw: 6676
   username: sisko
   host: defiant
   group: simulation
@@ -74,7 +74,7 @@
   executors:
     - sh
 
-- paw: 12496580262397793090
+- paw: 6511
   username: acrn
   host: acrn
   group: hypervisor
