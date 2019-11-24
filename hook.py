@@ -9,7 +9,8 @@ description = 'Simulated scenarios for testing operations without requiring depl
 address = '/plugin/mock/gui'
 
 
-async def enable(app, services):
+async def enable(services):
+    app = services.get('app_svc').application
     app.router.add_static('/mock', 'plugins/mock/static/', append_version=True)
 
     all_agents = [a for a in services.get('data_svc').strip_yml('plugins/mock/conf/agents.yml')[0]]
