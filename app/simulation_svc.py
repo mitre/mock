@@ -11,6 +11,7 @@ from app.objects.c_agent import Agent
 class SimulationService(BaseService):
 
     def __init__(self, services, agents, loaded_scenario):
+        self.contact_svc = services['contact_svc']
         self.data_svc = services['data_svc']
         self.app_svc = services['app_svc']
         self.log = self.add_service('simulation_svc', self)
@@ -35,16 +36,19 @@ class SimulationService(BaseService):
         """
         while True:
             try:
-                c2 = (await self.data_svc.locate('c2', match=dict(name=agent.c2)))[0]
-                await c2.handle_heartbeat(agent.paw, agent.platform, agent.server, agent.group, agent.host,
-                                          agent.username, agent.executors, agent.architecture, agent.location,
-                                          agent.pid, agent.ppid, await agent.calculate_sleep(), agent.privilege,
-                                          agent.c2)
-                instructions = json.loads(await c2.get_instructions(agent.paw))
+                await self.contact_svc.handle_heartbeat(agent.paw, agent.platform, agent.server, agent.group,
+                                                        agent.host,
+                                                        agent.username, agent.executors, agent.architecture,
+                                                        agent.location,
+                                                        agent.pid, agent.ppid, await agent.calculate_sleep(),
+                                                        agent.privilege,
+                                                        agent.c2,
+                                                        'sandcat.exe')
+                instructions = json.loads(await self.contact_svc.get_instructions(agent.paw))
                 for i in instructions:
                     instruction = json.loads(i)
                     response, status = await self._get_simulated_response(instruction['id'], agent.paw)
-                    await c2.save_results(instruction['id'], response, status, agent.pid)
+                    await self.contact_svc.save_results(instruction['id'], response, status, agent.pid)
                     await asyncio.sleep(instruction['sleep'])
                 await asyncio.sleep(await agent.calculate_sleep())
                 agent = (await self.data_svc.locate('agents', match=dict(paw=str(agent.paw))))[0]

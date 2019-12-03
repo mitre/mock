@@ -1,18 +1,14 @@
 import glob
 
 from plugins.mock.app.c_simulation import Simulation
-from plugins.mock.app.simulation_api import SimulationApi
 from plugins.mock.app.simulation_svc import SimulationService
 
 name = 'Mock'
 description = 'Simulated scenarios for testing operations without requiring deployed agents'
-address = '/plugin/mock/gui'
+address = None
 
 
 async def enable(services):
-    app = services.get('app_svc').application
-    app.router.add_static('/mock', 'plugins/mock/static/', append_version=True)
-
     all_agents = [a for a in services.get('data_svc').strip_yml('plugins/mock/conf/agents.yml')[0]]
     await services.get('data_svc').apply(collection='simulations')
     await _load_simulations(services)
@@ -20,8 +16,6 @@ async def enable(services):
     agents = [a for a in all_agents if a['enabled']]
     for a in agents:
         await simulation_svc.start_agent(a)
-    app.router.add_route('GET', '/plugin/mock/gui', SimulationApi(services).landing)
-    app.router.add_route('POST', '/plugin/mock/scenario', SimulationApi(services).scenarios)
 
 
 async def _load_simulations(services):
