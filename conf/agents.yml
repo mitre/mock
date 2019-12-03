@@ -9,6 +9,7 @@
   enabled: True
   privilege: User
   c2: HTTP
+  exe_name: sandcat.exe
   executors:
     - pwsh
     - psh
@@ -22,6 +23,7 @@
   enabled: True
   privilege: Elevated
   c2: HTTP
+  exe_name: sandcat.sh
   executors:
     - sh
 
@@ -34,6 +36,7 @@
   enabled: True
   privilege: User
   c2: HTTP
+  exe_name: sandcat.sh
   executors:
     - sh
 
@@ -46,6 +49,7 @@
   enabled: False
   privilege: Elevated
   c2: HTTP
+  exe_name: sandcat.exe
   executors:
     - pwsh
     - psh
@@ -59,6 +63,7 @@
   enabled: False
   privilege: User
   c2: HTTP
+  exe_name: sandcat.sh
   executors:
     - sh
 
@@ -71,6 +76,7 @@
   enabled: False
   privilege: User
   c2: HTTP
+  exe_name: sandcat.sh
   executors:
     - sh
 
@@ -83,5 +89,6 @@
   enabled: True
   privilege: User
   c2: HTTP
+  exe_name: sandcat.sh
   executors:
     - sh

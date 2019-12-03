@@ -43,7 +43,7 @@ class SimulationService(BaseService):
                                                         agent.pid, agent.ppid, await agent.calculate_sleep(),
                                                         agent.privilege,
                                                         agent.c2,
-                                                        'sandcat.exe')
+                                                        agent.exe_name)
                 instructions = json.loads(await self.contact_svc.get_instructions(agent.paw))
                 for i in instructions:
                     instruction = json.loads(i)
@@ -64,7 +64,8 @@ class SimulationService(BaseService):
         agent = Agent(paw=str(agent['paw']), host=agent['host'], username=agent['username'], group=agent['group'],
                       platform=agent['platform'], server='http://localhost:8888', location=agent['location'],
                       executors=agent['executors'], architecture=None, pid=randint(1000, 10000),
-                      ppid=randint(1000, 10000), privilege=agent['privilege'], c2=agent['c2'], trusted=True)
+                      ppid=randint(1000, 10000), privilege=agent['privilege'], c2=agent['c2'], trusted=True,
+                      exe_name=agent['exe_name'])
         await self.data_svc.store(agent)
         agent.sleep_min = agent.sleep_max = randint(55, 65)
         loop = asyncio.get_event_loop()
