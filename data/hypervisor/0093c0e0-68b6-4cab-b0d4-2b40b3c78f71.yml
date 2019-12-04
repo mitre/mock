@@ -1,0 +1,11 @@
+paws:
+  - paw: 6511
+    variables:
+      - name: default
+        value: default
+        status: 0
+        response: |
+           VM NAME                    VM ID       VM STATE
+           =======                    =====       ========
+           ACRN_VM                      0         Started
+           Mission_Critical_VM          1         Started

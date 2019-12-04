@@ -12,11 +12,13 @@ class Simulation(BaseObject):
         return dict(name=self.name, ability_id=self.ability_id, paw=self.paw, status=self.status,
                     response=self.response)
 
-    def __init__(self, name, ability_id, paw, status, response):
+    def __init__(self, name, ability_id, paw, status, response, variable_name=None, variable_value=None):
         self.name = name
         self.ability_id = ability_id
         self.paw = paw
         self.status = status
+        self.v_name = variable_name
+        self.v_value = variable_value
         self.response = response
 
     def store(self, ram):

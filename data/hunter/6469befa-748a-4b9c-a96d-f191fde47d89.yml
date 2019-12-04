@@ -1,0 +1,43 @@
+paws:
+  - paw: 1234
+    variables:
+      - name: default
+        value: default
+        status: 0
+        response: |
+          C:\Users\Public\staging
+  - paw: 4321
+    variables:
+      - name: default
+        value: default
+        status: 0
+        response: |
+          /Users/redleader/Desktop/staging
+  - paw: 5521
+    variables:
+      - name: default
+        value: default
+        status: 0
+        response: |
+          /tmp/staging
+  - paw: 5434
+    variables:
+      - name: default
+        value: default
+        status: 0
+        response: |
+          C:\Users\Public\staging
+  - paw: 5555
+    variables:
+      - name: default
+        value: default
+        status: 0
+        response: |
+          /Users/redleader/Desktop/staging
+  - paw: 6676
+    variables:
+      - name: default
+        value: default
+        status: 0
+        response: |
+          /tmp/staging

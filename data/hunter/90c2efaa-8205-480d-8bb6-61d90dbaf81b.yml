@@ -1,0 +1,49 @@
+paws:
+  - paw: 1234
+    variables:
+      - name: default
+        value: default
+        status: 0
+        response: |
+          C:\sample.txt
+          C:\Public\sample.yml
+          C:\Windows\System32\configuration.yml
+  - paw: 4321
+    variables:
+      - name: default
+        value: default
+        status: 0
+        response: |
+          /usr/local/bin/ansible/ansible.yml
+          /Users/redleader/git.txt
+  - paw: 5521
+    variables:
+      - name: default
+        value: default
+        status: 0
+        response: |
+          /mnt/shared.txt
+  - paw: 5434
+    variables:
+      - name: default
+        value: default
+        status: 0
+        response: |
+          C:\sample.txt
+          C:\Public\sample.yml
+          C:\Windows\System32\configuration.yml
+  - paw: 5555
+    variables:
+      - name: default
+        value: default
+        status: 0
+        response: |
+          /usr/local/bin/ansible/ansible.yml
+          /Users/janeway/git.txt
+  - paw: 6676
+    variables:
+      - name: default
+        value: default
+        status: 0
+        response: |
+          /mnt/shared.txt
