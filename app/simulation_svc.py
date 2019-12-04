@@ -108,12 +108,12 @@ class SimulationService(BaseService):
         decoded_test = self.decode_bytes(ability.test)
         decoded_command = self.decode_bytes(link.command)
         variables = re.findall(r'#{(.*?)}', decoded_test, flags=re.DOTALL)
-        vars = [x for x in variables if x not in ['server','paw','location','group']]
+        vars = [x for x in variables if x not in ['server', 'paw', 'location', 'group']]
         search_set = []
         filtering = decoded_test
         for v in vars:
             search_key, filtering = filtering.split("#{" + v + "}", 1)
-            extract = re.findall(r'' + re.escape(search_key)+ '(.*)', decoded_command, flags=re.DOTALL)
+            extract = re.findall(r'' + re.escape(search_key) + '(.*)', decoded_command, flags=re.DOTALL)
             extract = extract[0]
             if len(filtering) != 0:
                 bound = 3 if len(filtering) > 2 else -1
