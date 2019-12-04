@@ -36,8 +36,8 @@ async def _load_advanced_scenario(simulation, services):
                 encoded_response = services.get('data_svc').encode_string(arg['response'])
                 await services.get('data_svc').store(
                     Simulation(name=simulation['name'], ability_id=r['ability_id'], paw=str(paw['paw']),
-                                status=arg.get('status'), response=encoded_response, variable_name=arg['name'],
-                                variable_value=arg['value'])
+                               status=arg.get('status'), response=encoded_response, variable_name=arg['name'],
+                               variable_value=arg['value'])
                 )
 
 
