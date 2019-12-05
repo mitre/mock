@@ -79,12 +79,12 @@ class SimulationService(BaseService):
         if link.cleanup:
             return '', 0
         ability = (await self.data_svc.locate('abilities', match=dict(unique=link.ability.unique)))[0]
-        vars = await self._extract_vars(ability, link)
+        used_variables = await self._extract_used(ability, link)
         search = dict(name=self.loaded_scenario, ability_id=ability.ability_id, paw=paw)
         sim_responses = await self.data_svc.locate('simulations', search)
         if not sim_responses:
             return '', 0
-        targeted_response, targeted_status = await self._target_response(vars, sim_responses)
+        targeted_response, targeted_status = await self._target_response(used_variables, sim_responses)
         if '|SPAWN|' in self.decode_bytes(sim_responses[0].response):
             if await self._spawn_new_sim(link):
                 return self.encode_string('spawned new agent'), targeted_status
@@ -102,30 +102,26 @@ class SimulationService(BaseService):
                 return True
         return False
 
-    """ PRIVATE"""
-
-    async def _extract_vars(self, ability, link):
+    async def _extract_used(self, ability, link):
         decoded_test = self.decode_bytes(ability.test)
         decoded_command = self.decode_bytes(link.command)
         variables = re.findall(r'#{(.*?)}', decoded_test, flags=re.DOTALL)
-        vars = [x for x in variables if x not in ['server', 'paw', 'location', 'group']]
         search_set = []
         filtering = decoded_test
-        for v in vars:
-            search_key, filtering = filtering.split("#{" + v + "}", 1)
-            extract = re.findall(r'' + re.escape(search_key) + '(.*)', decoded_command, flags=re.DOTALL)
-            extract = extract[0]
+        for v in [x for x in variables if x not in ['server', 'paw', 'location', 'group']]:
+            search_key, filtering = filtering.split('#{' + v + '}', 1)
+            extract = re.findall(r'' + re.escape(search_key) + '(.*)', decoded_command, flags=re.DOTALL)[0]
             if len(filtering) != 0:
                 bound = 3 if len(filtering) > 2 else -1
                 extract = extract.split(filtering[0:bound])[0]
             search_set.append([v, extract])
         return search_set
 
-    async def _target_response(self, vars, response_object):
+    async def _target_response(self, used_variables, response_object):
         computable = dict()
         for entry in response_object:
-            computable[entry.v_name] = {entry.v_value: [entry.response, entry.status]}
-        for v in vars:
+            computable[entry.variable_name] = {entry.variable_value: [entry.response, entry.status]}
+        for v in used_variables:
             if v[0] in computable:
                 if v[1] in computable[v[0]]:
                     return computable[v[0]][v[1]]
