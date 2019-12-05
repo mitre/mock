@@ -2,7 +2,7 @@ paws:
   - paw: 1234
     variables:
       - name: default
-        value: bacon
+        value: default
         status: 0
         response: |
          |SPAWN|
