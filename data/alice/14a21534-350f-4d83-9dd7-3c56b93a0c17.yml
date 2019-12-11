@@ -1,0 +1,20 @@
+paws:
+  - paw: 9231
+    variables:
+      - trait: default
+        value: default
+        status: 0
+        response: |
+          Ethernet:
+          Node IpAddress: [192.168.56.102] Scope Id: []
+          
+                          NetBIOS Local Name Table
+          
+                 Name               Type         Status
+              ---------------------------------------------
+              HOST1          <00>  UNIQUE      Registered
+              MOCK           <00>  GROUP       Registered
+              HOST1          <20>  UNIQUE      Registered
+              MOCK           <1E>  GROUP       Registered
+              MOCK           <1D>  UNIQUE      Registered
+              __MSBROWSE__   <01>  GROUP       Registered

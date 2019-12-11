@@ -1,0 +1,8 @@
+paws:
+  - paw: 9231
+    variables:
+      - trait: default
+        value: default
+        status: 0
+        response: |
+          |SPAWN|

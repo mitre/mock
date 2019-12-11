@@ -1,0 +1,17 @@
+---
+
+name: alice
+type: advanced
+responses:
+  # Powerkatz (staged)
+  - ability_id: 7049e3ec-b822-4fdf-a4ac-18190f9b66d1
+  # Find Domain
+  - ability_id: 14a21534-350f-4d83-9dd7-3c56b93a0c17
+  # Discover Local Hosts
+  - ability_id: 13379ae1-d20e-4162-91f8-320d78a35e7f
+  # Mount Share
+  - ability_id: aa6ec4dd-db09-4925-b9b9-43adeb154686
+  # Copy 54ndc47 (SMB)
+  - ability_id: 65048ec1-f7ca-49d3-9410-10813e472b30
+  # Start 54ndc47 (WMI)
+  - ability_id: ece5dde3-d370-4c20-b213-a1f424aa8d03
