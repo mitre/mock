@@ -1,42 +1,42 @@
 paws:
   - paw: 1234
     variables:
-      - name: default
+      - trait: default
         value: default
         status: 0
         response: |
           darthvader
   - paw: 4321
     variables:
-      - name: default
+      - trait: default
         value: default
         status: 0
         response: |
           redleader
   - paw: 5521
     variables:
-      - name: default
+      - trait: default
         value: default
         status: 0
         response: |
           hansolo
   - paw: 5434
     variables:
-      - name: default
+      - trait: default
         value: default
         status: 0
         response: |
           picard
   - paw: 5555
     variables:
-      - name: default
+      - trait: default
         value: default
         status: 0
         response: |
           janeway
   - paw: 6676
     variables:
-      - name: default
+      - trait: default
         value: default
         status: 0
         response: |

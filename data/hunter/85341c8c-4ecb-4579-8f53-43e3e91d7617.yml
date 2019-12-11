@@ -1,21 +1,21 @@
 paws:
   - paw: 1234
     variables:
-      - name: default
+      - trait: default
         value: default
         status: 0
         response: |
           128.127.126.125
   - paw: 4321
     variables:
-      - name: default
+      - trait: default
         value: default
         status: 0
         response: |
           111.111.111.110
   - paw: 5521
     variables:
-      - name: default
+      - trait: default
         value: default
         status: 0
         response: |

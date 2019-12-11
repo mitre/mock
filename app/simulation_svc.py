@@ -107,20 +107,19 @@ class SimulationService(BaseService):
         decoded_command = self.decode_bytes(link.command)
         variables = re.findall(r'#{(.*?)}', decoded_test, flags=re.DOTALL)
         search_set = []
-        filtering = decoded_test
         for v in [x for x in variables if x not in ['server', 'paw', 'location', 'group']]:
-            search_key, filtering = filtering.split('#{' + v + '}', 1)
+            search_key, decoded_test = decoded_test.split('#{' + v + '}', 1)
             extract = re.findall(r'' + re.escape(search_key) + '(.*)', decoded_command, flags=re.DOTALL)[0]
-            if len(filtering) != 0:
-                bound = 3 if len(filtering) > 2 else -1
-                extract = extract.split(filtering[0:bound])[0]
+            if len(decoded_test) != 0:
+                bound = 3 if len(decoded_test) > 2 else -1
+                extract = extract.split(decoded_test[0:bound])[0]
             search_set.append([v, extract])
         return search_set
 
     async def _target_response(self, used_variables, response_object):
         computable = dict()
         for entry in response_object:
-            computable[entry.variable_name] = {entry.variable_value: [entry.response, entry.status]}
+            computable[entry.variable_trait] = {entry.variable_value: [entry.response, entry.status]}
         for v in used_variables:
             if v[0] in computable:
                 if v[1] in computable[v[0]]:

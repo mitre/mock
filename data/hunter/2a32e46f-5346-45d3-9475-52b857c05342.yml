@@ -1,7 +1,7 @@
 paws:
   - paw: 1234
     variables:
-      - name: default
+      - trait: default
         value: default
         status: 0
         response: |

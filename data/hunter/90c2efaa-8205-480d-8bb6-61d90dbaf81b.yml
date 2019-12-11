@@ -1,7 +1,7 @@
 paws:
   - paw: 1234
     variables:
-      - name: default
+      - trait: default
         value: default
         status: 0
         response: |
@@ -10,7 +10,7 @@ paws:
           C:\Windows\System32\configuration.yml
   - paw: 4321
     variables:
-      - name: default
+      - trait: default
         value: default
         status: 0
         response: |
@@ -18,14 +18,14 @@ paws:
           /Users/redleader/git.txt
   - paw: 5521
     variables:
-      - name: default
+      - trait: default
         value: default
         status: 0
         response: |
           /mnt/shared.txt
   - paw: 5434
     variables:
-      - name: default
+      - trait: default
         value: default
         status: 0
         response: |
@@ -34,7 +34,7 @@ paws:
           C:\Windows\System32\configuration.yml
   - paw: 5555
     variables:
-      - name: default
+      - trait: default
         value: default
         status: 0
         response: |
@@ -42,7 +42,7 @@ paws:
           /Users/janeway/git.txt
   - paw: 6676
     variables:
-      - name: default
+      - trait: default
         value: default
         status: 0
         response: |
