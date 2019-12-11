@@ -1,31 +1,31 @@
 ---
 
-#- paw: 1234
-#  username: darthvader
-#  host: deathstar
-#  group: simulation
-#  platform: windows
-#  location: C:\Users\Public
-#  enabled: True
-#  privilege: User
-#  c2: HTTP
-#  exe_name: sandcat.exe
-#  executors:
-#    - pwsh
-#    - psh
+- paw: 1234
+  username: darthvader
+  host: deathstar
+  group: simulation
+  platform: windows
+  location: C:\Users\Public
+  enabled: True
+  privilege: User
+  c2: HTTP
+  exe_name: sandcat.exe
+  executors:
+    - pwsh
+    - psh
 
-#- paw: 4321
-#  username: redleader
-#  host: xwing
-#  group: simulation
-#  platform: darwin
-#  location: /tmp
-#  enabled: True
-#  privilege: Elevated
-#  c2: HTTP
-#  exe_name: sandcat.sh
-#  executors:
-#    - sh
+- paw: 4321
+  username: redleader
+  host: xwing
+  group: simulation
+  platform: darwin
+  location: /tmp
+  enabled: True
+  privilege: Elevated
+  c2: HTTP
+  exe_name: sandcat.sh
+  executors:
+    - sh
 
 - paw: 5521
   username: hansolo
