@@ -199,6 +199,14 @@ responses:
           * Domain   : sim/sim
           * Password : MakeItSo"
 
+  - ability_id: 2e6b5cd0-1367-46e6-8815-812144c4aa05
+    paws:
+      - paw: 1234
+        status: 0
+        response: |
+          brianedmonds90@gmail.com
+          bedmonds@mitre.org
+
   # Start 54ndc47 (WMI)
   - ability_id: 2a32e46f-5346-45d3-9475-52b857c05342
     paws:
