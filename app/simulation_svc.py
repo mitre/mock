@@ -68,7 +68,7 @@ class SimulationService(BaseService):
                       ppid=randint(1000, 10000), privilege=agent['privilege'], c2=agent['c2'], trusted=True,
                       exe_name=agent['exe_name'])
         await self.data_svc.store(agent)
-        agent.sleep_min = agent.sleep_max = 15
+        agent.sleep_min = agent.sleep_max = randint(55, 65)
         loop = asyncio.get_event_loop()
         loop.create_task(self.run(agent))
 
