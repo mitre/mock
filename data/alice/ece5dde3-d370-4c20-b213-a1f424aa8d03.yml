@@ -6,3 +6,17 @@ paws:
         status: 0
         response: |
           |SPAWN|
+  - paw: 1145
+    variables:
+      - trait: default
+        value: default
+        status: 0
+        response: |
+          |SPAWN|
+  - paw: 4251
+    variables:
+      - trait: default
+        value: default
+        status: 0
+        response: |
+          |SPAWN|
