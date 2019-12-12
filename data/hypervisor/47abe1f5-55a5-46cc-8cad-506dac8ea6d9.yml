@@ -1,0 +1,8 @@
+paws:
+  - paw: 6511
+    variables:
+      - trait: default
+        value: default
+        status: 0
+        response: |
+           127.0.0.1:22

@@ -29,12 +29,16 @@ async def _load_simulations(services):
 
 async def _load_advanced_scenario(simulation, services):
     for r in simulation['responses']:
-        for paw in r['paws']:
-            encoded_response = services.get('data_svc').encode_string(paw['response'])
-            await services.get('data_svc').store(
-                Simulation(name=simulation['name'], ability_id=r['ability_id'], paw=str(paw['paw']),
-                           status=paw.get('status'), response=encoded_response)
-            )
+        data = services.get('data_svc').strip_yml('plugins/mock/data/{}/{}.yml'.format(simulation['name'],
+                                                                                       r['ability_id']))[0]
+        for paw in data['paws']:
+            for arg in paw['variables']:
+                encoded_response = services.get('data_svc').encode_string(arg['response'])
+                await services.get('data_svc').store(
+                    Simulation(name=simulation['name'], ability_id=r['ability_id'], paw=str(paw['paw']),
+                               status=arg.get('status'), response=encoded_response, variable_trait=arg['trait'],
+                               variable_value=arg['value'])
+                )
 
 
 async def _load_basic_scenario(simulation, services):
