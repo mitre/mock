@@ -1,0 +1,103 @@
+paws:
+  - paw: 9231
+    variables:
+      - trait: default
+        value: default
+        status: 0
+        response: |
+          Authentication Id : 0 ; 138572 (00000000:00021d4c)
+          Session           : Interactive from 1
+          User Name         : Administrator
+          Domain            : MOCK
+          Logon Server      : WIN-SRHIQ4J4ROV
+          Logon Time        : 12/11/2019 10:32:53 AM
+          SID               : S-1-5-21-5376977-2392478274-3887395548-500
+              msv :
+               [00010000] CredentialKeys
+               * NTLM     : 832c0fd93cb314ac7a47794622cbd1ff
+               * SHA1     : e573557a8fd29230116c00ebed42a02344b6b83d
+               [00000003] Primary
+               * Username : Administrator
+               * Domain   : MOCK
+               * NTLM     : 656b53c60bec1ef127fce1719f52b26c
+               * SHA1     : 8426f86601590be88c33eb116b23a8fbe31c67d2
+              tspkg :
+              wdigest :
+               * Username : Administrator
+               * Domain   : MOCK
+               * Password : Bonkers!@#123
+              livessp :
+              kerberos :
+               * Username : Administrator
+               * Domain   : MOCK.LOCAL
+               * Password : (null)
+              ssp :	KO
+              credman :
+  - paw: 1145
+    variables:
+      - trait: default
+        value: default
+        status: 0
+        response: |
+          Authentication Id : 0 ; 138572 (00000000:00021d4c)
+          Session           : Interactive from 1
+          User Name         : Administrator
+          Domain            : MOCK
+          Logon Server      : WIN-SRHIQ4J4ROV
+          Logon Time        : 12/11/2019 10:32:53 AM
+          SID               : S-1-5-21-5376977-2392478274-3887395548-500
+              msv :
+               [00010000] CredentialKeys
+               * NTLM     : 832c0fd93cb314ac7a47794622cbd1ff
+               * SHA1     : e573557a8fd29230116c00ebed42a02344b6b83d
+               [00000003] Primary
+               * Username : Administrator
+               * Domain   : MOCK
+               * NTLM     : 656b53c60bec1ef127fce1719f52b26c
+               * SHA1     : 8426f86601590be88c33eb116b23a8fbe31c67d2
+              tspkg :
+              wdigest :
+               * Username : Administrator
+               * Domain   : MOCK
+               * Password : Bonkers!@#123
+              livessp :
+              kerberos :
+               * Username : Administrator
+               * Domain   : MOCK.LOCAL
+               * Password : (null)
+              ssp :	KO
+              credman :
+  - paw: 4251
+    variables:
+      - trait: default
+        value: default
+        status: 0
+        response: |
+          Authentication Id : 0 ; 138572 (00000000:00021d4c)
+          Session           : Interactive from 1
+          User Name         : Administrator
+          Domain            : MOCK
+          Logon Server      : WIN-SRHIQ4J4ROV
+          Logon Time        : 12/11/2019 10:32:53 AM
+          SID               : S-1-5-21-5376977-2392478274-3887395548-500
+              msv :
+               [00010000] CredentialKeys
+               * NTLM     : 832c0fd93cb314ac7a47794622cbd1ff
+               * SHA1     : e573557a8fd29230116c00ebed42a02344b6b83d
+               [00000003] Primary
+               * Username : Administrator
+               * Domain   : MOCK
+               * NTLM     : 656b53c60bec1ef127fce1719f52b26c
+               * SHA1     : 8426f86601590be88c33eb116b23a8fbe31c67d2
+              tspkg :
+              wdigest :
+               * Username : Administrator
+               * Domain   : MOCK
+               * Password : Bonkers!@#123
+              livessp :
+              kerberos :
+               * Username : Administrator
+               * Domain   : MOCK.LOCAL
+               * Password : (null)
+              ssp :	KO
+              credman :

@@ -1,0 +1,355 @@
+paws:
+  - paw: 9231
+    variables:
+      - trait: default
+        value: default
+        status: 0
+        response: |
+          pwdlastset                    : 12/11/2019 10:27:45 AM
+          logoncount                    : 895
+          serverreferencebl             : CN=WIN-SRHIQ4J4ROV,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=f
+                                          lare,DC=local
+          badpasswordtime               : 12/31/1600 4:00:00 PM
+          distinguishedname             : CN=WIN-SRHIQ4J4ROV,OU=Domain Controllers,DC=mock,DC=local
+          objectclass                   : {top, person, organizationalPerson, user...}
+          lastlogontimestamp            : 12/11/2019 10:28:09 AM
+          name                          : WIN-SRHIQ4J4ROV
+          objectsid                     : S-1-5-21-5376977-2392478274-3887395548-1001
+          samaccountname                : WIN-SRHIQ4J4ROV$
+          localpolicyflags              : 0
+          codepage                      : 0
+          samaccounttype                : MACHINE_ACCOUNT
+          whenchanged                   : 12/11/2019 6:28:09 PM
+          accountexpires                : NEVER
+          countrycode                   : 0
+          operatingsystem               : Windows Server 2012 R2 Standard Evaluation
+          instancetype                  : 4
+          msdfsr-computerreferencebl    : CN=WIN-SRHIQ4J4ROV,CN=Topology,CN=Domain System
+                                          Volume,CN=DFSR-GlobalSettings,CN=System,DC=mock,DC=local
+          objectguid                    : ccfbe669-fa29-42f9-8eb4-532e372f7bec
+          operatingsystemversion        : 6.3 (9600)
+          lastlogoff                    : 12/31/1600 4:00:00 PM
+          objectcategory                : CN=Computer,CN=Schema,CN=Configuration,DC=mock,DC=local
+          dscorepropagationdata         : {7/19/2017 9:52:29 PM, 1/1/1601 12:00:01 AM}
+          serviceprincipalname          : {Dfsr-12F9A27C-BF97-4787-9364-D31B6C55EB04/WIN-SRHIQ4J4ROV.mock.local,
+                                          ldap/WIN-SRHIQ4J4ROV.mock.local/ForestDnsZones.mock.local,
+                                          ldap/WIN-SRHIQ4J4ROV.mock.local/DomainDnsZones.mock.local,
+                                          DNS/WIN-SRHIQ4J4ROV.mock.local...}
+          usncreated                    : 12293
+          lastlogon                     : 12/11/2019 10:28:13 AM
+          badpwdcount                   : 0
+          cn                            : WIN-SRHIQ4J4ROV
+          useraccountcontrol            : SERVER_TRUST_ACCOUNT, TRUSTED_FOR_DELEGATION
+          whencreated                   : 7/19/2017 9:52:29 PM
+          primarygroupid                : 516
+          iscriticalsystemobject        : True
+          msds-supportedencryptiontypes : 28
+          usnchanged                    : 1372500
+          ridsetreferences              : CN=RID Set,CN=WIN-SRHIQ4J4ROV,OU=Domain Controllers,DC=mock,DC=local
+          dnshostname                   : WIN-SRHIQ4J4ROV.mock.local
+
+          logoncount                    : 1032
+          badpasswordtime               : 11/8/2019 9:53:14 AM
+          distinguishedname             : CN=NET1,CN=Computers,DC=mock,DC=local
+          objectclass                   : {top, person, organizationalPerson, user...}
+          badpwdcount                   : 60
+          lastlogontimestamp            : 10/30/2019 10:15:52 AM
+          objectsid                     : S-1-5-21-5376977-2392478274-3887395548-1104
+          samaccountname                : NET1$
+          localpolicyflags              : 0
+          codepage                      : 0
+          samaccounttype                : MACHINE_ACCOUNT
+          countrycode                   : 0
+          cn                            : NET1
+          accountexpires                : NEVER
+          whenchanged                   : 10/30/2019 5:15:53 PM
+          instancetype                  : 4
+          usncreated                    : 12754
+          objectguid                    : ad860191-1093-4ca1-ab95-40b015e37038
+          operatingsystem               : Windows 8.1 Enterprise Evaluation
+          operatingsystemversion        : 6.3 (9600)
+          lastlogoff                    : 12/31/1600 4:00:00 PM
+          objectcategory                : CN=Computer,CN=Schema,CN=Configuration,DC=mock,DC=local
+          dscorepropagationdata         : 1/1/1601 12:00:00 AM
+          serviceprincipalname          : {WSMAN/host1, WSMAN/host1.mock.local, RestrictedKrbHost/NET1, HOST/NET1...}
+          lastlogon                     : 11/8/2019 9:49:06 AM
+          iscriticalsystemobject        : False
+          usnchanged                    : 1229112
+          useraccountcontrol            : WORKSTATION_TRUST_ACCOUNT
+          whencreated                   : 7/19/2017 10:26:19 PM
+          primarygroupid                : 515
+          pwdlastset                    : 10/30/2019 10:15:52 AM
+          msds-supportedencryptiontypes : 28
+          name                          : NET1
+          dnshostname                   : host1.mock.local
+
+          logoncount                    : 824
+          badpasswordtime               : 12/31/1600 4:00:00 PM
+          distinguishedname             : CN=host2,CN=Computers,DC=mock,DC=local
+          objectclass                   : {top, person, organizationalPerson, user...}
+          badpwdcount                   : 0
+          lastlogontimestamp            : 12/11/2019 10:28:47 AM
+          objectsid                     : S-1-5-21-5376977-2392478274-3887395548-1105
+          samaccountname                : NET2$
+          localpolicyflags              : 0
+          codepage                      : 0
+          samaccounttype                : MACHINE_ACCOUNT
+          countrycode                   : 0
+          cn                            : host2
+          accountexpires                : NEVER
+          whenchanged                   : 12/11/2019 6:28:47 PM
+          instancetype                  : 4
+          usncreated                    : 12798
+          objectguid                    : b050b45c-4b1d-43bc-92b4-8959d1366c01
+          operatingsystem               : Windows 8.1 Enterprise Evaluation
+          operatingsystemversion        : 6.3 (9600)
+          lastlogoff                    : 12/31/1600 4:00:00 PM
+          objectcategory                : CN=Computer,CN=Schema,CN=Configuration,DC=mock,DC=local
+          dscorepropagationdata         : 1/1/1601 12:00:00 AM
+          serviceprincipalname          : {WSMAN/host2, WSMAN/host2.mock.local, RestrictedKrbHost/host2, HOST/host2...}
+          lastlogon                     : 12/11/2019 10:28:56 AM
+          iscriticalsystemobject        : False
+          usnchanged                    : 1372506
+          useraccountcontrol            : WORKSTATION_TRUST_ACCOUNT
+          whencreated                   : 7/19/2017 10:48:44 PM
+          primarygroupid                : 515
+          pwdlastset                    : 12/11/2019 10:28:47 AM
+          msds-supportedencryptiontypes : 28
+          name                          : host2
+          dnshostname                   : host2.mock.local
+  - paw: 1145
+    variables:
+      - trait: default
+        value: default
+        status: 0
+        response: |
+          pwdlastset                    : 12/11/2019 10:27:45 AM
+          logoncount                    : 895
+          serverreferencebl             : CN=WIN-SRHIQ4J4ROV,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=f
+                                          lare,DC=local
+          badpasswordtime               : 12/31/1600 4:00:00 PM
+          distinguishedname             : CN=WIN-SRHIQ4J4ROV,OU=Domain Controllers,DC=mock,DC=local
+          objectclass                   : {top, person, organizationalPerson, user...}
+          lastlogontimestamp            : 12/11/2019 10:28:09 AM
+          name                          : WIN-SRHIQ4J4ROV
+          objectsid                     : S-1-5-21-5376977-2392478274-3887395548-1001
+          samaccountname                : WIN-SRHIQ4J4ROV$
+          localpolicyflags              : 0
+          codepage                      : 0
+          samaccounttype                : MACHINE_ACCOUNT
+          whenchanged                   : 12/11/2019 6:28:09 PM
+          accountexpires                : NEVER
+          countrycode                   : 0
+          operatingsystem               : Windows Server 2012 R2 Standard Evaluation
+          instancetype                  : 4
+          msdfsr-computerreferencebl    : CN=WIN-SRHIQ4J4ROV,CN=Topology,CN=Domain System
+                                          Volume,CN=DFSR-GlobalSettings,CN=System,DC=mock,DC=local
+          objectguid                    : ccfbe669-fa29-42f9-8eb4-532e372f7bec
+          operatingsystemversion        : 6.3 (9600)
+          lastlogoff                    : 12/31/1600 4:00:00 PM
+          objectcategory                : CN=Computer,CN=Schema,CN=Configuration,DC=mock,DC=local
+          dscorepropagationdata         : {7/19/2017 9:52:29 PM, 1/1/1601 12:00:01 AM}
+          serviceprincipalname          : {Dfsr-12F9A27C-BF97-4787-9364-D31B6C55EB04/WIN-SRHIQ4J4ROV.mock.local,
+                                          ldap/WIN-SRHIQ4J4ROV.mock.local/ForestDnsZones.mock.local,
+                                          ldap/WIN-SRHIQ4J4ROV.mock.local/DomainDnsZones.mock.local,
+                                          DNS/WIN-SRHIQ4J4ROV.mock.local...}
+          usncreated                    : 12293
+          lastlogon                     : 12/11/2019 10:28:13 AM
+          badpwdcount                   : 0
+          cn                            : WIN-SRHIQ4J4ROV
+          useraccountcontrol            : SERVER_TRUST_ACCOUNT, TRUSTED_FOR_DELEGATION
+          whencreated                   : 7/19/2017 9:52:29 PM
+          primarygroupid                : 516
+          iscriticalsystemobject        : True
+          msds-supportedencryptiontypes : 28
+          usnchanged                    : 1372500
+          ridsetreferences              : CN=RID Set,CN=WIN-SRHIQ4J4ROV,OU=Domain Controllers,DC=mock,DC=local
+          dnshostname                   : WIN-SRHIQ4J4ROV.mock.local
+
+          logoncount                    : 1032
+          badpasswordtime               : 11/8/2019 9:53:14 AM
+          distinguishedname             : CN=NET1,CN=Computers,DC=mock,DC=local
+          objectclass                   : {top, person, organizationalPerson, user...}
+          badpwdcount                   : 60
+          lastlogontimestamp            : 10/30/2019 10:15:52 AM
+          objectsid                     : S-1-5-21-5376977-2392478274-3887395548-1104
+          samaccountname                : NET1$
+          localpolicyflags              : 0
+          codepage                      : 0
+          samaccounttype                : MACHINE_ACCOUNT
+          countrycode                   : 0
+          cn                            : NET1
+          accountexpires                : NEVER
+          whenchanged                   : 10/30/2019 5:15:53 PM
+          instancetype                  : 4
+          usncreated                    : 12754
+          objectguid                    : ad860191-1093-4ca1-ab95-40b015e37038
+          operatingsystem               : Windows 8.1 Enterprise Evaluation
+          operatingsystemversion        : 6.3 (9600)
+          lastlogoff                    : 12/31/1600 4:00:00 PM
+          objectcategory                : CN=Computer,CN=Schema,CN=Configuration,DC=mock,DC=local
+          dscorepropagationdata         : 1/1/1601 12:00:00 AM
+          serviceprincipalname          : {WSMAN/host1, WSMAN/host1.mock.local, RestrictedKrbHost/NET1, HOST/NET1...}
+          lastlogon                     : 11/8/2019 9:49:06 AM
+          iscriticalsystemobject        : False
+          usnchanged                    : 1229112
+          useraccountcontrol            : WORKSTATION_TRUST_ACCOUNT
+          whencreated                   : 7/19/2017 10:26:19 PM
+          primarygroupid                : 515
+          pwdlastset                    : 10/30/2019 10:15:52 AM
+          msds-supportedencryptiontypes : 28
+          name                          : NET1
+          dnshostname                   : host1.mock.local
+
+          logoncount                    : 824
+          badpasswordtime               : 12/31/1600 4:00:00 PM
+          distinguishedname             : CN=host2,CN=Computers,DC=mock,DC=local
+          objectclass                   : {top, person, organizationalPerson, user...}
+          badpwdcount                   : 0
+          lastlogontimestamp            : 12/11/2019 10:28:47 AM
+          objectsid                     : S-1-5-21-5376977-2392478274-3887395548-1105
+          samaccountname                : NET2$
+          localpolicyflags              : 0
+          codepage                      : 0
+          samaccounttype                : MACHINE_ACCOUNT
+          countrycode                   : 0
+          cn                            : host2
+          accountexpires                : NEVER
+          whenchanged                   : 12/11/2019 6:28:47 PM
+          instancetype                  : 4
+          usncreated                    : 12798
+          objectguid                    : b050b45c-4b1d-43bc-92b4-8959d1366c01
+          operatingsystem               : Windows 8.1 Enterprise Evaluation
+          operatingsystemversion        : 6.3 (9600)
+          lastlogoff                    : 12/31/1600 4:00:00 PM
+          objectcategory                : CN=Computer,CN=Schema,CN=Configuration,DC=mock,DC=local
+          dscorepropagationdata         : 1/1/1601 12:00:00 AM
+          serviceprincipalname          : {WSMAN/host2, WSMAN/host2.mock.local, RestrictedKrbHost/host2, HOST/host2...}
+          lastlogon                     : 12/11/2019 10:28:56 AM
+          iscriticalsystemobject        : False
+          usnchanged                    : 1372506
+          useraccountcontrol            : WORKSTATION_TRUST_ACCOUNT
+          whencreated                   : 7/19/2017 10:48:44 PM
+          primarygroupid                : 515
+          pwdlastset                    : 12/11/2019 10:28:47 AM
+          msds-supportedencryptiontypes : 28
+          name                          : host2
+          dnshostname                   : host2.mock.local
+  - paw: 4251
+    variables:
+      - trait: default
+        value: default
+        status: 0
+        response: |
+          pwdlastset                    : 12/11/2019 10:27:45 AM
+          logoncount                    : 895
+          serverreferencebl             : CN=WIN-SRHIQ4J4ROV,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=f
+                                          lare,DC=local
+          badpasswordtime               : 12/31/1600 4:00:00 PM
+          distinguishedname             : CN=WIN-SRHIQ4J4ROV,OU=Domain Controllers,DC=mock,DC=local
+          objectclass                   : {top, person, organizationalPerson, user...}
+          lastlogontimestamp            : 12/11/2019 10:28:09 AM
+          name                          : WIN-SRHIQ4J4ROV
+          objectsid                     : S-1-5-21-5376977-2392478274-3887395548-1001
+          samaccountname                : WIN-SRHIQ4J4ROV$
+          localpolicyflags              : 0
+          codepage                      : 0
+          samaccounttype                : MACHINE_ACCOUNT
+          whenchanged                   : 12/11/2019 6:28:09 PM
+          accountexpires                : NEVER
+          countrycode                   : 0
+          operatingsystem               : Windows Server 2012 R2 Standard Evaluation
+          instancetype                  : 4
+          msdfsr-computerreferencebl    : CN=WIN-SRHIQ4J4ROV,CN=Topology,CN=Domain System
+                                          Volume,CN=DFSR-GlobalSettings,CN=System,DC=mock,DC=local
+          objectguid                    : ccfbe669-fa29-42f9-8eb4-532e372f7bec
+          operatingsystemversion        : 6.3 (9600)
+          lastlogoff                    : 12/31/1600 4:00:00 PM
+          objectcategory                : CN=Computer,CN=Schema,CN=Configuration,DC=mock,DC=local
+          dscorepropagationdata         : {7/19/2017 9:52:29 PM, 1/1/1601 12:00:01 AM}
+          serviceprincipalname          : {Dfsr-12F9A27C-BF97-4787-9364-D31B6C55EB04/WIN-SRHIQ4J4ROV.mock.local,
+                                          ldap/WIN-SRHIQ4J4ROV.mock.local/ForestDnsZones.mock.local,
+                                          ldap/WIN-SRHIQ4J4ROV.mock.local/DomainDnsZones.mock.local,
+                                          DNS/WIN-SRHIQ4J4ROV.mock.local...}
+          usncreated                    : 12293
+          lastlogon                     : 12/11/2019 10:28:13 AM
+          badpwdcount                   : 0
+          cn                            : WIN-SRHIQ4J4ROV
+          useraccountcontrol            : SERVER_TRUST_ACCOUNT, TRUSTED_FOR_DELEGATION
+          whencreated                   : 7/19/2017 9:52:29 PM
+          primarygroupid                : 516
+          iscriticalsystemobject        : True
+          msds-supportedencryptiontypes : 28
+          usnchanged                    : 1372500
+          ridsetreferences              : CN=RID Set,CN=WIN-SRHIQ4J4ROV,OU=Domain Controllers,DC=mock,DC=local
+          dnshostname                   : WIN-SRHIQ4J4ROV.mock.local
+
+          logoncount                    : 1032
+          badpasswordtime               : 11/8/2019 9:53:14 AM
+          distinguishedname             : CN=NET1,CN=Computers,DC=mock,DC=local
+          objectclass                   : {top, person, organizationalPerson, user...}
+          badpwdcount                   : 60
+          lastlogontimestamp            : 10/30/2019 10:15:52 AM
+          objectsid                     : S-1-5-21-5376977-2392478274-3887395548-1104
+          samaccountname                : NET1$
+          localpolicyflags              : 0
+          codepage                      : 0
+          samaccounttype                : MACHINE_ACCOUNT
+          countrycode                   : 0
+          cn                            : NET1
+          accountexpires                : NEVER
+          whenchanged                   : 10/30/2019 5:15:53 PM
+          instancetype                  : 4
+          usncreated                    : 12754
+          objectguid                    : ad860191-1093-4ca1-ab95-40b015e37038
+          operatingsystem               : Windows 8.1 Enterprise Evaluation
+          operatingsystemversion        : 6.3 (9600)
+          lastlogoff                    : 12/31/1600 4:00:00 PM
+          objectcategory                : CN=Computer,CN=Schema,CN=Configuration,DC=mock,DC=local
+          dscorepropagationdata         : 1/1/1601 12:00:00 AM
+          serviceprincipalname          : {WSMAN/host1, WSMAN/host1.mock.local, RestrictedKrbHost/NET1, HOST/NET1...}
+          lastlogon                     : 11/8/2019 9:49:06 AM
+          iscriticalsystemobject        : False
+          usnchanged                    : 1229112
+          useraccountcontrol            : WORKSTATION_TRUST_ACCOUNT
+          whencreated                   : 7/19/2017 10:26:19 PM
+          primarygroupid                : 515
+          pwdlastset                    : 10/30/2019 10:15:52 AM
+          msds-supportedencryptiontypes : 28
+          name                          : NET1
+          dnshostname                   : host1.mock.local
+
+          logoncount                    : 824
+          badpasswordtime               : 12/31/1600 4:00:00 PM
+          distinguishedname             : CN=host2,CN=Computers,DC=mock,DC=local
+          objectclass                   : {top, person, organizationalPerson, user...}
+          badpwdcount                   : 0
+          lastlogontimestamp            : 12/11/2019 10:28:47 AM
+          objectsid                     : S-1-5-21-5376977-2392478274-3887395548-1105
+          samaccountname                : NET2$
+          localpolicyflags              : 0
+          codepage                      : 0
+          samaccounttype                : MACHINE_ACCOUNT
+          countrycode                   : 0
+          cn                            : host2
+          accountexpires                : NEVER
+          whenchanged                   : 12/11/2019 6:28:47 PM
+          instancetype                  : 4
+          usncreated                    : 12798
+          objectguid                    : b050b45c-4b1d-43bc-92b4-8959d1366c01
+          operatingsystem               : Windows 8.1 Enterprise Evaluation
+          operatingsystemversion        : 6.3 (9600)
+          lastlogoff                    : 12/31/1600 4:00:00 PM
+          objectcategory                : CN=Computer,CN=Schema,CN=Configuration,DC=mock,DC=local
+          dscorepropagationdata         : 1/1/1601 12:00:00 AM
+          serviceprincipalname          : {WSMAN/host2, WSMAN/host2.mock.local, RestrictedKrbHost/host2, HOST/host2...}
+          lastlogon                     : 12/11/2019 10:28:56 AM
+          iscriticalsystemobject        : False
+          usnchanged                    : 1372506
+          useraccountcontrol            : WORKSTATION_TRUST_ACCOUNT
+          whencreated                   : 7/19/2017 10:48:44 PM
+          primarygroupid                : 515
+          pwdlastset                    : 12/11/2019 10:28:47 AM
+          msds-supportedencryptiontypes : 28
+          name                          : host2
+          dnshostname                   : host2.mock.local

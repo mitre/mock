@@ -1,0 +1,19 @@
+paws:
+  - paw: 9231
+    variables:
+      - trait: default
+        value: default
+        status: 0
+        response: |
+  - paw: 4251
+    variables:
+      - trait: default
+        value: default
+        status: 0
+        response: |
+  - paw: 1145
+    variables:
+      - trait: default
+        value: default
+        status: 0
+        response: |

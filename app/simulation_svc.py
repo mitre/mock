@@ -93,11 +93,12 @@ class SimulationService(BaseService):
 
     async def _spawn_new_sim(self, link):
         filtered = [a for a in self.agents if not a['enabled']]
-        run_on = (await self.data_svc.locate('agents', match=dict(paw=link['paw'])))[0]
-        command_actual = self.decode_bytes(link['command'])
+        run_on = (await self.data_svc.locate('agents', match=dict(paw=link.paw)))[0]
+        command_actual = self.decode_bytes(link.command)
         for agent in filtered:
-            box, user = agent['paw'].split('$')
-            if user in command_actual and box in command_actual and run_on['platform'] == agent['os']:
+            box = agent['host']
+            user = agent['username']
+            if user in command_actual and box in command_actual and run_on.platform == agent['platform']:
                 await self.start_agent(agent)
                 return True
         return False

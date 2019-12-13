@@ -92,3 +92,45 @@
   exe_name: sandcat.sh
   executors:
     - sh
+
+- paw: 9231
+  username: Administrator
+  host: host1
+  group: alice
+  platform: windows
+  location: C:\Users\Public
+  enabled: True
+  privilege: User
+  c2: HTTP
+  exe_name: sandcat.exe
+  executors:
+    - pwsh
+    - psh
+
+- paw: 1145
+  username: Administrator
+  host: host2
+  group: alice
+  platform: windows
+  location: C:\Users\Public
+  enabled: False
+  privilege: User
+  c2: HTTP
+  exe_name: sandcat.exe
+  executors:
+    - pwsh
+    - psh
+
+- paw: 4251
+  username: Administrator
+  host: win-srhiq4j4rov
+  group: alice
+  platform: windows
+  location: C:\Users\Public
+  enabled: False
+  privilege: User
+  c2: HTTP
+  exe_name: sandcat.exe
+  executors:
+    - pwsh
+    - psh
