@@ -11,45 +11,44 @@
     <body>
     <center style="margin-bottom: 100px">
     <div class="navbar">
-        <a onclick="localStorage.setItem('intro', '1')" href="/">Home</a>
+        <a href="/">Home</a>
         <a href="/logout" style="float:right">Logout</a>
-        <div>
-            <div class="row-canvas">
-                <div class="section-profile">
-                    <div class="row">
-                        <div class="column header-icon" style="flex:35%">
-                            <img style="filter:invert(var(--invert-percentage))" src="/mock/img/simulate.jpg">
-                        </div>
-                        <div class="column" style="flex:65%;text-align:left">
-                            <h1 style="margin-top:-20px;text-shadow: 5px 5px 5px var(--theme-color);">Mock</h1>
-                            <h2 style="margin-top:-85px">an environment to simulate operations</h2>
-                            <p style="width: 75%;font-size:14px;">
-                                Simulation scenarios provide mock ability responses - per agent - during a running
-                                operation. Use scenarios to test planners, as well as see how an attacker may make decisions
-                                if they face specific defensive measures. Only one scenario can be applied at a time.
-                                Apply a scenario and run an operation that uses any of the simulated agents.
-                            </p>
-                            <select id="scenarios" style="width: 20%">
-                              <option value="" disabled selected>Select a scenario</option>
-                              {% for s in scenarios %}
-                                  {%  if s == loaded_scenario %}
-                                        <option value={{ s }} >{{ s }} (loaded)</option>
-                                  {%  else %}
-                                        <option value={{ s }} >{{ s }}</option>
-                                  {%  endif %}
-                              {% endfor %}
-                            </select>
-                            <br>
-                            <button type="button" class="button-success" style="width:20%" onclick="applyScenario()">Apply</button>
-                            <div id="mock-confirm">
-                              <span id="message"></span>
-                          </div>
-                        </div>
-                    </div>
-                </div>
+    </div>
 
+    <div class="row-canvas">
+        <div class="section-profile">
+            <div class="row">
+                <div class="column" style="flex:35%;">
+                    <img style="filter:invert(var(--invert-percentage));height:200px" src="/mock/img/simulate.jpg">
+                </div>
+                <div class="column" style="flex:65%;text-align:left">
+                    <h1 style="margin-top:-20px;;">Mock</h1>
+                    <h2 style="margin-top:-85px">an environment to simulate operations</h2>
+                    <p style="width: 75%;font-size:14px;">
+                        Simulation scenarios provide mock ability responses - per agent - during a running
+                        operation. Use scenarios to test planners, as well as see how an attacker may make decisions
+                        if they face specific defensive measures. Only one scenario can be applied at a time.
+                        Apply a scenario and run an operation that uses any of the simulated agents.
+                    </p>
+                    <select id="scenarios" style="width: 20%">
+                      <option value="" disabled selected>Select a scenario</option>
+                      {% for s in scenarios %}
+                          {%  if s == loaded_scenario %}
+                                <option value={{ s }} >{{ s }} (loaded)</option>
+                          {%  else %}
+                                <option value={{ s }} >{{ s }}</option>
+                          {%  endif %}
+                      {% endfor %}
+                    </select>
+                    <br>
+                    <button type="button" class="button-success" style="width:20%" onclick="applyScenario()">Apply</button>
+                    <div id="mock-confirm">
+                      <span id="message"></span>
+                  </div>
+                </div>
             </div>
         </div>
+
         </center>
     </body>
     <script src="/mock/js/mock.js"></script>
