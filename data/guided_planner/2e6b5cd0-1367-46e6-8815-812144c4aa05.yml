@@ -1,0 +1,9 @@
+paws:
+  - paw: 5521
+    variables:
+      - trait: default
+        value: default
+        status: 0
+        response: |
+           brianedmonds90@gmail.com
+           bedmonds@mitre.org

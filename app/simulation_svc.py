@@ -1,6 +1,7 @@
 import asyncio
 import json
 import traceback
+import re
 
 from random import randint
 
@@ -78,23 +79,50 @@ class SimulationService(BaseService):
         if link.cleanup:
             return '', 0
         ability = (await self.data_svc.locate('abilities', match=dict(unique=link.ability.unique)))[0]
+        used_variables = await self._extract_used(ability, link)
         search = dict(name=self.loaded_scenario, ability_id=ability.ability_id, paw=paw)
         sim_responses = await self.data_svc.locate('simulations', search)
         if not sim_responses:
             return '', 0
+        targeted_response, targeted_status = await self._target_response(used_variables, sim_responses)
         if '|SPAWN|' in self.decode_bytes(sim_responses[0].response):
             if await self._spawn_new_sim(link):
-                return self.encode_string('spawned new agent'), sim_responses[0].status
+                return self.encode_string('spawned new agent'), targeted_status
             return self.encode_string('failed to spawn new agent'), 1
-        return sim_responses[0].response, sim_responses[0].status
+        return targeted_response, targeted_status
 
     async def _spawn_new_sim(self, link):
         filtered = [a for a in self.agents if not a['enabled']]
-        run_on = (await self.data_svc.locate('agents', match=dict(paw=link['paw'])))[0]
-        command_actual = self.decode_bytes(link['command'])
+        run_on = (await self.data_svc.locate('agents', match=dict(paw=link.paw)))[0]
+        command_actual = self.decode_bytes(link.command)
         for agent in filtered:
-            box, user = agent['paw'].split('$')
-            if user in command_actual and box in command_actual and run_on['platform'] == agent['os']:
+            box = agent['host']
+            user = agent['username']
+            if user in command_actual and box in command_actual and run_on.platform == agent['platform']:
                 await self.start_agent(agent)
                 return True
         return False
+
+    async def _extract_used(self, ability, link):
+        decoded_test = self.decode_bytes(ability.test)
+        decoded_command = self.decode_bytes(link.command)
+        variables = re.findall(r'#{(.*?)}', decoded_test, flags=re.DOTALL)
+        search_set = []
+        for v in [x for x in variables if x not in ['server', 'paw', 'location', 'group']]:
+            search_key, decoded_test = decoded_test.split('#{' + v + '}', 1)
+            extract = re.findall(r'' + re.escape(search_key) + '(.*)', decoded_command, flags=re.DOTALL)[0]
+            if len(decoded_test) != 0:
+                bound = 3 if len(decoded_test) > 2 else -1
+                extract = extract.split(decoded_test[0:bound])[0]
+            search_set.append([v, extract])
+        return search_set
+
+    async def _target_response(self, used_variables, response_object):
+        computable = dict()
+        for entry in response_object:
+            computable[entry.variable_trait] = {entry.variable_value: [entry.response, entry.status]}
+        for v in used_variables:
+            if v[0] in computable:
+                if v[1] in computable[v[0]]:
+                    return computable[v[0]][v[1]]
+        return computable['default']['default']

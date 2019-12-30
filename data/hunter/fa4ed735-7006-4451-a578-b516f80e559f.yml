@@ -1,0 +1,8 @@
+paws:
+  - paw: 1234
+    variables:
+      - trait: default
+        value: default
+        status: 0
+        response: |
+          Name: enterprise

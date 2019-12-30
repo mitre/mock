@@ -1,0 +1,5 @@
+paws:
+  - paw: 4321
+    status: 0
+    response: |
+      yoyoyo

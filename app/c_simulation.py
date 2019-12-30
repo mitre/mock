@@ -10,13 +10,15 @@ class Simulation(BaseObject):
     @property
     def display(self):
         return dict(name=self.name, ability_id=self.ability_id, paw=self.paw, status=self.status,
-                    response=self.response)
+                    response=self.response, variable_name=self.variable_name, variable_value=self.variable_value)
 
-    def __init__(self, name, ability_id, paw, status, response):
+    def __init__(self, name, ability_id, paw, status, response, variable_trait=None, variable_value=None):
         self.name = name
         self.ability_id = ability_id
         self.paw = paw
         self.status = status
+        self.variable_trait = variable_trait
+        self.variable_value = variable_value
         self.response = response
 
     def store(self, ram):

@@ -1,0 +1,15 @@
+paws:
+  - paw: 4321
+    variables:
+      - trait: default
+        value: default
+        status: 0
+        response: |
+          redleader
+  - paw: 5521
+    variables:
+      - trait: default
+        value: default
+        status: 0
+        response: |
+          hansolo
