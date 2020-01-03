@@ -5,7 +5,5 @@ paws:
         value: default
         status: 0
         response: |
-           VM NAME                    VM ID       VM STATE
-           =======                    =====       ========
-           ACRN_VM                      0         Started
-           Mission_Critical_VM          1         Started
+          hard_rtvm		started
+          vm1		stopped
