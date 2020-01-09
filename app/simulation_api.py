@@ -8,6 +8,8 @@ class SimulationApi:
 
     def __init__(self, services):
         self.services = services
+        # need the next line to make authentication checks work
+        self.auth_svc = services['auth_svc']
 
     @template('mock.html')
     @check_authorization
