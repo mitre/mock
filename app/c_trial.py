@@ -33,8 +33,6 @@ class Trial(BaseObject):
     """ PRIVATE """
 
     def _calculate_charts(self):
-        for op in self.operations:
-
         plt.plot([1, 2, 3, 4, 8, 12, 20])
         plt.xlabel('some numbers')
         plt.ylabel('some numbers')
