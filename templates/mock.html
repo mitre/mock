@@ -199,7 +199,6 @@
                     $('#trial-charts').append('<li>'+chart+'</li>');
                 });
                 if(finished === trial.operations.length) {
-                    console.log('Turning off refresh');
                     clearInterval(refreshInterval);
                     refreshInterval = null;
                 } else {
