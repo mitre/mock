@@ -32,10 +32,11 @@ class Trial(BaseObject):
     """ PRIVATE """
 
     def _calculate_charts(self):
-        plt.hist([len(o.chain) for o in self.operations if o.chain], density=True)
-        plt.title('Number of decisions per operation')
-        plt.xlabel('decisions')
-        plt.ylabel('operations')
+        plt.close()
+        plt.hist([int(link.jitter) for o in self.operations for link in o.chain], bins=50)
+        plt.title('Jitter per link')
+        plt.xlabel('jitter')
+        plt.ylabel('links')
 
         temp_file = BytesIO()
         plt.savefig(temp_file, format='png')

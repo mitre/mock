@@ -88,7 +88,7 @@ class SimulationService(BaseService):
         adv = await self.get_service('data_svc').locate('adversaries', match=dict(adversary_id=data.pop('adversary_id')))
 
         for op in range(int(data.get('number'))):
-            operation = Operation(name='%s-%s' % (trial.name, self.generate_name(size=6)),
+            operation = Operation(name='%s-%s' % (trial.name, self.generate_name(size=6)), jitter=data.get('jitter'),
                                   adversary=copy.deepcopy(adv[0]), planner=planner[0], agents=agents,
                                   source=next(iter(sources), None), phases_enabled=bool(int(data.get('phases_enabled'))))
             operation.set_start_details()
