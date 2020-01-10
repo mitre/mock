@@ -15,12 +15,11 @@ class Trial(BaseObject):
 
     @property
     def display(self):
-        return dict(name=self.name, number=self.number, start=self.start.strftime('%Y-%m-%d %H:%M:%S'),
+        return dict(name=self.name, start=self.start.strftime('%Y-%m-%d %H:%M:%S'),
                     operations=[o.display for o in self.operations], charts=self._calculate_charts())
 
-    def __init__(self, name, number):
+    def __init__(self, name):
         self.name = name
-        self.number = number
         self.start = datetime.now()
         self.operations = []
 
@@ -33,7 +32,7 @@ class Trial(BaseObject):
     """ PRIVATE """
 
     def _calculate_charts(self):
-        plt.hist([len(o.chain) for o in self.operations], normed=True)
+        plt.hist([len(o.chain) for o in self.operations if o.chain], density=True)
         plt.title('Number of decisions per operation')
         plt.xlabel('decisions')
         plt.ylabel('operations')

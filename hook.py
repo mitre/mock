@@ -1,4 +1,5 @@
 import glob
+import logging
 
 from plugins.mock.app.c_simulation import Simulation
 from plugins.mock.app.simulation_api import SimulationApi
@@ -10,6 +11,7 @@ address = '/plugin/mock/gui'
 
 
 async def enable(services):
+    logging.getLogger('matplotlib').setLevel(logging.FATAL)
     app = services.get('app_svc').application
     app.router.add_static('/mock', 'plugins/mock/static/', append_version=True)
     await services.get('data_svc').apply(collection='simulations')

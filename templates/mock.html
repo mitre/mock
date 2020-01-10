@@ -194,11 +194,11 @@
                 });
                 $('#trial-charts').empty();
                 $('#trial-name').html(trial.name);
-                $('#trial-number').html(finished + ' of ' + trial.number + ' operations completed');
+                $('#trial-number').html(finished + ' of ' + trial.operations.length + ' operations completed');
                 $.each(trial.charts, function(index, chart) {
                     $('#trial-charts').append('<li>'+chart+'</li>');
                 });
-                if(finished === trial.number) {
+                if(finished === trial.operations.length) {
                     console.log('Turning off refresh');
                     clearInterval(refreshInterval);
                     refreshInterval = null;

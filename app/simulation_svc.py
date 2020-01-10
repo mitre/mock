@@ -73,10 +73,10 @@ class SimulationService(BaseService):
         loop.create_task(self.run(agent))
 
     async def run_trial(self, data):
-        trial = Trial(name=data.get('name'), number=int(data.get('number')))
+        trial = Trial(name=data.get('name'))
         await self.data_svc.store(trial)
         asyncio.get_event_loop().create_task(self._run_all_trials(trial, data))
-        self.log.debug('New "%s" trial started with %s operations' % (trial.name, trial.number))
+        self.log.debug('New "%s" trial started with %s operations' % (trial.name, data.get('number')))
         return trial
 
     """ PRIVATE """
@@ -87,7 +87,7 @@ class SimulationService(BaseService):
         sources = await self.get_service('data_svc').locate('sources', match=dict(name=data.pop('source')))
         adv = await self.get_service('data_svc').locate('adversaries', match=dict(adversary_id=data.pop('adversary_id')))
 
-        for op in range(trial.number):
+        for op in range(int(data.get('number'))):
             operation = Operation(name='%s-%s' % (trial.name, self.generate_name(size=6)),
                                   adversary=copy.deepcopy(adv[0]), planner=planner[0], agents=agents,
                                   source=next(iter(sources), None), phases_enabled=bool(int(data.get('phases_enabled'))))
