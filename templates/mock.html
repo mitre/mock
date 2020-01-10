@@ -192,7 +192,7 @@
                         finished += 1;
                     }
                 });
-
+                $('#trial-charts').empty();
                 $('#trial-name').html(trial.name);
                 $('#trial-number').html(finished + ' of ' + trial.number + ' operations completed');
                 $.each(trial.charts, function(index, chart) {

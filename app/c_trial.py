@@ -33,9 +33,11 @@ class Trial(BaseObject):
     """ PRIVATE """
 
     def _calculate_charts(self):
-        plt.plot([1, 2, 3, 4, 8, 12, 20])
-        plt.xlabel('some numbers')
-        plt.ylabel('some numbers')
+        plt.hist([len(o.chain) for o in self.operations], normed=True)
+        plt.title('Number of decisions per operation')
+        plt.xlabel('decisions')
+        plt.ylabel('operations')
+
         temp_file = BytesIO()
         plt.savefig(temp_file, format='png')
         encoded = b64encode(temp_file.getvalue()).decode('utf-8')
