@@ -17,13 +17,11 @@ class SimulationApi:
     async def landing(self, request):
         simulations = set([s.name for s in await self.services.get('data_svc').locate('simulations')])
         loaded_scenario = self.services.get('simulation_svc').loaded_scenario
-        hosts = [h.display for h in await self.data_svc.locate('agents')]
-        groups = [g for g in set(([h['group'] for h in hosts])) if g == 'simulation']
         adversaries = [a.display for a in await self.data_svc.locate('adversaries')]
         sources = [s.display for s in await self.data_svc.locate('sources')]
         planners = [p.display for p in await self.data_svc.locate('planners')]
         trials = [t.display for t in await self.data_svc.locate('trials')]
-        return dict(scenarios=simulations, groups=groups, adversaries=adversaries, sources=sources, planners=planners,
+        return dict(scenarios=simulations, adversaries=adversaries, sources=sources, planners=planners,
                     trials=trials, loaded_scenario=loaded_scenario)
 
     @check_authorization
