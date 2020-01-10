@@ -1,12 +1,15 @@
 import asyncio
+import copy
 import json
 import traceback
 import re
 
 from random import randint
 
+from app.objects.c_operation import Operation
 from app.utility.base_service import BaseService
 from app.objects.c_agent import Agent
+from plugins.mock.app.c_trial import Trial
 
 
 class SimulationService(BaseService):
@@ -38,12 +41,9 @@ class SimulationService(BaseService):
         while True:
             try:
                 await self.contact_svc.handle_heartbeat(agent.paw, agent.platform, agent.server, agent.group,
-                                                        agent.host,
-                                                        agent.username, agent.executors, agent.architecture,
-                                                        agent.location,
-                                                        agent.pid, agent.ppid, await agent.calculate_sleep(),
-                                                        agent.privilege,
-                                                        agent.c2,
+                                                        agent.host, agent.username, agent.executors, agent.architecture,
+                                                        agent.location, agent.pid, agent.ppid,
+                                                        await agent.calculate_sleep(), agent.privilege, agent.c2,
                                                         agent.exe_name)
                 instructions = json.loads(await self.contact_svc.get_instructions(agent.paw))
                 for i in instructions:
@@ -72,7 +72,29 @@ class SimulationService(BaseService):
         loop = asyncio.get_event_loop()
         loop.create_task(self.run(agent))
 
+    async def run_trial(self, data):
+        trial = Trial(name=data.get('name'))
+        await self.data_svc.store(trial)
+        asyncio.get_event_loop().create_task(self._run_all_trials(trial, data))
+        self.log.debug('New "%s" trial started with %s operations' % (trial.name, data.get('number')))
+        return trial
+
     """ PRIVATE """
+
+    async def _run_all_trials(self, trial, data):
+        agents = await self.get_service('data_svc').locate('agents', match=dict(group='simulation'))
+        planner = await self.get_service('data_svc').locate('planners', match=dict(name=data.pop('planner')))
+        sources = await self.get_service('data_svc').locate('sources', match=dict(name=data.pop('source')))
+        adv = await self.get_service('data_svc').locate('adversaries', match=dict(adversary_id=data.pop('adversary_id')))
+
+        for op in range(int(data.get('number'))):
+            operation = Operation(name='%s-%s' % (trial.name, self.generate_name(size=6)),
+                                  adversary=copy.deepcopy(adv[0]), planner=planner[0], agents=agents,
+                                  source=next(iter(sources), None), phases_enabled=bool(int(data.get('phases_enabled'))))
+            operation.set_start_details()
+            await self.data_svc.store(operation)
+            trial.operations.append(operation)
+            asyncio.get_event_loop().create_task(self.get_service('app_svc').run_operation(operation))
 
     async def _get_simulated_response(self, link_id, paw):
         link = await self.app_svc.find_link(link_id)

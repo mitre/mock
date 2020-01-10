@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="/gui/css/basic.css">
         <link rel="stylesheet" href="/sandcat/css/basic.css">
         <link rel="stylesheet" href="/gui/css/modal.css">
+        <link rel="stylesheet" href="/mock/css/basic.css">
     </head>
     <body>
     <center style="margin-bottom: 100px">
@@ -16,6 +17,7 @@
     </div>
 
     <div class="row-canvas">
+
         <div class="section-profile">
             <div class="row">
                 <div class="column" style="flex:35%;">
@@ -28,7 +30,7 @@
                         Simulation scenarios provide mock ability responses - per agent - during a running
                         operation. Use scenarios to test planners, as well as see how an attacker may make decisions
                         if they face specific defensive measures. Only one scenario can be applied at a time.
-                        Apply a scenario and run an operation that uses any of the simulated agents.
+                        Apply a scenario and run a mock trial below.
                     </p>
                     <select id="scenarios" style="width: 20%">
                       <option value="" disabled selected>Select a scenario</option>
@@ -49,9 +51,166 @@
             </div>
         </div>
 
-        </center>
+        <div id="mock-run" class="section-profile">
+            <div class="row">
+                <div id="mock-sidebar" class="column section-border" style="flex:25%">
+                  <img src="/mock/img/trial.png">
+                  <h4>Trials</h4>
+                  <br>
+                  <div class="toggle">
+                    <label class="switch"><input type="checkbox" id="togBtnOp" onchange="toggleTrialView()">
+                      <div class="slider round"><span class="on">ADD</span><span class="off">VIEW</span></div>
+                    </label>
+                  </div>
+                  <p class="section-description">
+                      A trial is a set of n-number of operations. Run trials to test out different planners and
+                      understand how they compare against each other.
+                  </p>
+                  <div id="viewTrial">
+                    <select id="trial-list" style="margin-bottom: 15px;" onchange="refresh()">
+                      <option id="trialDefault" value="" disabled selected>Trials</option>
+                      {% for t in trials %}
+                            <option id="{{ t.name }}" value="{{ t.name }}">{{ t.name }} - {{ t.start }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                  <br>
+                  <div id="addTrial" style="display: none">
+                      <input id="queueName" placeholder="Trial name"/>
+                      <input id="queueNumber" placeholder="Number of operations to run"/>
+                      <select name="work" id="queueFlow">
+                        <option value="" disabled selected>Please select an adversary</option>
+                        {% for adv in adversaries %}
+                          <option id="qflow-{{ adv.adversary_id }}" value="{{ adv.adversary_id }}">{{ adv.name }}</option>
+                        {% endfor %}
+                      </select>
+                      <select name="planner" id="queuePlanner">
+                        {% for p in planners %}
+                            <option value="{{ p.name }}">Use {{ p.name }} planner</option>
+                        {% endfor %}
+                      </select>
+                      <select name="source" id="queueSource">
+                        {% for s in sources %}
+                            <option value="{{ s.name }}">Use {{ s.name }} facts</option>
+                        {% endfor %}
+                      </select>
+                      <select name="phases" id="queuePhasesEnabled">
+                        <option value="1" selected>Enable Phases</option>
+                        <option value="0">Disable Phases</option>
+                      </select>
+                      <input name="jitter" id="queueJitter" placeholder="Jitter (min/max) sec"/>
+                      <button id="opBtn" type="button"
+                          class="button-success atomic-button" onclick="handleStart()">Start
+                      </button>
+                  </div>
+                </div>
+                <div class="column" style="flex:75%">
+                  <div class="trial-details">
+                    <center>
+                        <div>
+                            <h2 id="trial-name"></h2>
+                            <h4 id="trial-number"></h4>
+                            <br>
+                            <ul id="trial-charts" class="trial-charts"></ul>
+                        </div>
+                    </center>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </center>
     </body>
     <script src="/mock/js/mock.js"></script>
     <script src="/gui/js/shared.js"></script>
     <script src="/gui/jquery/jquery.js"></script>
+    <script>
+        function handleStart() {
+            function handleStartAction(data){
+                $("#togBtnOp").prop("checked", false).change();
+                let op_elem = $("#trial-list");
+                if(!op_elem.find('option[value="'+data.name+'"]').length > 0){
+                    op_elem.append('<option id="' + data.name + '"' + 'value="' + data.name +'" >' + data.name + ' - ' + data.start + '</option>');
+                }
+                op_elem.prop('selectedIndex', op_elem.find('option').length-1).change();
+                refresh();
+            }
+            let trial = buildOperationObject();
+            restRequest('POST', trial, handleStartAction, '/plugin/mock/trial');
+        }
+
+        function buildOperationObject() {
+            let name = document.getElementById("queueName").value;
+            if(!name){ alert('Please enter an operation name'); return; }
+
+            let jitter = document.getElementById("queueJitter").value || "4/8";
+            try {
+                let [jitterMin, jitterMax] = jitter.split("/");
+                jitterMin = parseInt(jitterMin);
+                jitterMax = parseInt(jitterMax);
+                if(!jitterMin || !jitterMax){
+                    throw true;
+                }
+                if(jitterMin >= jitterMax){
+                    alert('Jitter MIN must be less than the jitter MAX.');
+                    return;
+                }
+            } catch (e) {
+                alert('Jitter must be of the form "min/max" (e.x. 4/8)');
+                return;
+            }
+            return {
+                "name":name,
+                "number":document.getElementById("queueNumber").value,
+                "adversary_id":document.getElementById("queueFlow").value,
+                "planner":document.getElementById("queuePlanner").value,
+                "phases_enabled":document.getElementById("queuePhasesEnabled").value,
+                "jitter":jitter,
+                "source":document.getElementById("queueSource").value
+            };
+        }
+
+        function toggleTrialView(){
+            $('#viewTrial').toggle();
+            $('#addTrial').toggle();
+            if ($('#togBtnOp').is(':checked')) {
+                showHide('.queueOption', '#trial-list');
+            } else {
+                showHide('#trial-list', '.queueOption');
+            }
+        }
+
+        let refreshInterval = null;
+
+        function refresh() {
+            function trialCallback(data){
+                let trial = data[0];
+                let finished = 0;
+                $.each(trial.operations, function(index, op) {
+                    if(op.finish) {
+                        finished += 1;
+                    }
+                });
+                $('#trial-charts').empty();
+                $('#trial-name').html(trial.name);
+                $('#trial-number').html(finished + ' of ' + trial.operations.length + ' operations completed');
+                $.each(trial.charts, function(index, chart) {
+                    $('#trial-charts').append('<li>'+chart+'</li>');
+                });
+                if(finished === trial.operations.length) {
+                    console.log('Turning off refresh');
+                    clearInterval(refreshInterval);
+                    refreshInterval = null;
+                } else {
+                    if(!refreshInterval) {
+                        refreshInterval = setInterval(refresh, 10000);
+                    }
+                }
+            }
+            let selected = $('#trial-list option:selected').attr('value');
+            let postData = selected ? {'index':'trials','name': selected} : null;
+            restRequest('POST', postData, trialCallback, '/plugin/chain/full');
+        }
+    </script>
 </html>
