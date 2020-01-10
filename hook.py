@@ -12,10 +12,12 @@ address = '/plugin/mock/gui'
 async def enable(services):
     app = services.get('app_svc').application
     app.router.add_static('/mock', 'plugins/mock/static/', append_version=True)
+    await services.get('data_svc').apply(collection='simulations')
+    await services.get('data_svc').apply(collection='trials')
+
+    await _load_scenarios(services)
 
     all_agents = [a for a in services.get('data_svc').strip_yml('plugins/mock/conf/agents.yml')[0]]
-    await services.get('data_svc').apply(collection='simulations')
-    await _load_simulations(services)
     simulation_svc = SimulationService(services, all_agents, loaded_scenario='hunter')
     agents = [a for a in all_agents if a['enabled']]
     for a in agents:
@@ -23,15 +25,13 @@ async def enable(services):
 
     app.router.add_route('GET', '/plugin/mock/gui', SimulationApi(services).landing)
     app.router.add_route('POST', '/plugin/mock/scenario', SimulationApi(services).scenarios)
+    app.router.add_route('POST', '/plugin/mock/trial', SimulationApi(services).run_trial)
 
 
-async def _load_simulations(services):
+async def _load_scenarios(services):
     for filename in glob.iglob('plugins/mock/conf/scenarios/*.yml', recursive=True):
-        for simulation in services.get('data_svc').strip_yml(filename):
-            if simulation['type'] == 'advanced':
-                await _load_advanced_scenario(simulation, services)
-            else:
-                await _load_basic_scenario(simulation, services)
+        for scenario in services.get('data_svc').strip_yml(filename):
+            await _load_advanced_scenario(scenario, services)
 
 
 async def _load_advanced_scenario(simulation, services):
@@ -46,16 +46,3 @@ async def _load_advanced_scenario(simulation, services):
                                status=arg.get('status'), response=encoded_response, variable_trait=arg['trait'],
                                variable_value=arg['value'])
                 )
-
-
-async def _load_basic_scenario(simulation, services):
-    all_abilities = [dict(ability_id=a.ability_id, tactic=a.tactic, technique=a.technique_id)
-                     for a in await services.get('data_svc').locate('abilities')]
-    for r in simulation['responses']:
-        for ability in all_abilities:
-            if ability['tactic'] == r['tactic'] and ability['technique'] == r['technique']['id']:
-                for paw in r['paws']:
-                    await services.get('data_svc').store(
-                        Simulation(name=simulation['name'], ability_id=ability['ability_id'], paw=str(paw),
-                                   status=r['status'], response='')
-                    )
