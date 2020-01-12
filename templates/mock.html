@@ -1,3 +1,4 @@
+<script src="/gui/js/shared.js"></script>
 <html>
     <head>
         <title>Mock | simulation environment</title>
@@ -7,7 +8,6 @@
         <link rel="stylesheet" href="/gui/css/basic.css">
         <link rel="stylesheet" href="/sandcat/css/basic.css">
         <link rel="stylesheet" href="/gui/css/modal.css">
-        <link rel="stylesheet" href="/mock/css/basic.css">
     </head>
     <body>
     <center style="margin-bottom: 100px">
@@ -29,7 +29,7 @@
                     <p style="width: 75%;font-size:14px;">
                         Simulation scenarios provide mock ability responses - per agent - during a running
                         operation. Use scenarios to test planners, as well as see how an attacker may make decisions
-                        if they face specific defensive measures. Apply a scenario and run a batch of operations below.
+                        if they face specific defensive measures. Apply a scenario and run an operation.
                     </p>
                     <select id="scenarios" style="width: 20%">
                       <option value="" disabled selected>Select a scenario</option>
@@ -50,92 +50,9 @@
             </div>
         </div>
 
-        <div id="mock-run" class="section-profile">
-            <div class="row">
-                <div id="mock-sidebar" class="column section-border" style="flex:25%">
-                  <img src="/mock/img/trial.png">
-                  <h4>Batches</h4>
-                  <br>
-                  <div class="toggle">
-                    <label class="switch"><input type="checkbox" id="togBtnOp" onchange="toggleBatchView()">
-                      <div class="slider round"><span class="on">ADD</span><span class="off">VIEW</span></div>
-                    </label>
-                  </div>
-                  <p class="section-description">
-                      A batch is a set of n-operations, which run asynchronously. Run a batch to test out different planners and
-                      understand how they compare against each other.
-                  </p>
-                  <div id="viewBatch">
-                    <select id="batch-list" style="margin-bottom: 15px;" onchange="refresh()">
-                      <option id="batchDefault" value="" disabled selected>Select a batch</option>
-                      {% for b in batches %}
-                            <option id="{{ b.name }}" value="{{ b.name }}">{{ b.name }} - {{ b.start }}</option>
-                      {% endfor %}
-                    </select>
-                  </div>
-                  <br>
-                  <div id="addBatch" style="display: none">
-                      <input id="queueName" placeholder="Batch name"/>
-                      <input id="queueNumber" placeholder="Number of operations to run"/>
-                      <select name="host" id="queueGroup">
-                        <option value="" disabled selected>Please select a group</option>
-                        {% for g in groups %}
-                            <option id="qgroup-{{ g }}" value="{{ g }}">{{ g }}</option>
-                        {% endfor %}
-                      </select>
-                      <select name="work" id="queueFlow">
-                        <option value="" disabled selected>Please select an adversary</option>
-                        {% for adv in adversaries %}
-                          <option id="qflow-{{ adv.adversary_id }}" value="{{ adv.adversary_id }}">{{ adv.name }}</option>
-                        {% endfor %}
-                      </select>
-                      <select name="planner" id="queuePlanner">
-                        {% for p in planners %}
-                            <option value="{{ p.name }}">Use {{ p.name }} planner</option>
-                        {% endfor %}
-                      </select>
-                      <select name="source" id="queueSource">
-                        {% for s in sources %}
-                            <option value="{{ s.name }}">Use {{ s.name }} facts</option>
-                        {% endfor %}
-                      </select>
-                      <select name="phases" id="queuePhasesEnabled">
-                        <option value="1" selected>Enable Phases</option>
-                        <option value="0">Disable Phases</option>
-                      </select>
-                      <button id="opBtn" type="button"
-                          class="button-success atomic-button" onclick="handleStart()">Start
-                      </button>
-                  </div>
-                </div>
-                <div class="column" style="flex:75%">
-                  <div class="batch-details">
-                    <center>
-                        <div>
-                            <h2 id="batch-name"></h2>
-                            <br>
-                            <table id="batch-results" class="batch-results" frame=void rules=rows>
-                                <thead>
-                                    <tr>
-                                        <th>START</th>
-                                        <th>FINISH</th>
-                                        <th>DURATION</th>
-                                        <th>DECISIONS</th>
-                                    </tr>
-                                </thead>
-                                <tr></tr>
-                            </table>
-                        </div>
-                    </center>
-                  </div>
-                </div>
-            </div>
-        </div>
-
     </div>
     </center>
     </body>
     <script src="/mock/js/mock.js"></script>
-    <script src="/gui/js/shared.js"></script>
     <script src="/gui/jquery/jquery.js"></script>
 </html>

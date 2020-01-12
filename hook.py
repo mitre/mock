@@ -27,7 +27,6 @@ async def enable(services):
 
     app.router.add_route('GET', '/plugin/mock/gui', SimulationApi(services).landing)
     app.router.add_route('POST', '/plugin/mock/scenario', SimulationApi(services).scenarios)
-    app.router.add_route('POST', '/plugin/mock/batch', SimulationApi(services).run_batch)
 
 
 async def _load_scenarios(services):

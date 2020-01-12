@@ -1,15 +1,11 @@
 import asyncio
-import copy
 import json
-import traceback
 import re
-
+import traceback
 from random import randint
 
-from app.objects.c_operation import Operation
-from app.utility.base_service import BaseService
 from app.objects.c_agent import Agent
-from plugins.mock.app.c_batch import Batch
+from app.utility.base_service import BaseService
 
 
 class SimulationService(BaseService):
@@ -72,29 +68,7 @@ class SimulationService(BaseService):
         loop = asyncio.get_event_loop()
         loop.create_task(self.run(agent))
 
-    async def run_batch(self, data):
-        batch = Batch(name=data.get('name'))
-        await self.data_svc.store(batch)
-        asyncio.get_event_loop().create_task(self._run_batch(batch, data))
-        self.log.debug('New "%s" batch started with %s operations' % (batch.name, data.get('number')))
-        return batch
-
     """ PRIVATE """
-
-    async def _run_batch(self, batch, data):
-        agents = await self.get_service('data_svc').locate('agents', match=dict(group=data.pop('group')))
-        planner = await self.get_service('data_svc').locate('planners', match=dict(name=data.pop('planner')))
-        sources = await self.get_service('data_svc').locate('sources', match=dict(name=data.pop('source')))
-        adv = await self.get_service('data_svc').locate('adversaries', match=dict(adversary_id=data.pop('adversary_id')))
-
-        for op in range(int(data.get('number'))):
-            operation = Operation(name='%s-%s' % (batch.name, self.generate_name(size=6)), jitter='1/2',
-                                  adversary=copy.deepcopy(adv[0]), planner=planner[0], agents=agents,
-                                  source=next(iter(sources), None), phases_enabled=bool(int(data.get('phases_enabled'))))
-            operation.set_start_details()
-            await self.data_svc.store(operation)
-            batch.operations.append(operation)
-            asyncio.get_event_loop().create_task(self.get_service('app_svc').run_operation(operation))
 
     async def _get_simulated_response(self, link_id, paw):
         link = await self.app_svc.find_link(link_id)
