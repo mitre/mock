@@ -113,9 +113,18 @@
                     <center>
                         <div>
                             <h2 id="batch-name"></h2>
-                            <h4 id="batch-number"></h4>
                             <br>
-                            <ul id="batch-charts" class="batch-charts"></ul>
+                            <table id="batch-results" class="batch-results" frame=void rules=rows>
+                                <thead>
+                                    <tr>
+                                        <th>START</th>
+                                        <th>FINISH</th>
+                                        <th>DURATION</th>
+                                        <th>DECISIONS</th>
+                                    </tr>
+                                </thead>
+                                <tr></tr>
+                            </table>
                         </div>
                     </center>
                   </div>
@@ -129,74 +138,4 @@
     <script src="/mock/js/mock.js"></script>
     <script src="/gui/js/shared.js"></script>
     <script src="/gui/jquery/jquery.js"></script>
-    <script>
-        function handleStart() {
-            function handleStartAction(data){
-                $("#togBtnOp").prop("checked", false).change();
-                let op_elem = $("#batch-list");
-                if(!op_elem.find('option[value="'+data.name+'"]').length > 0){
-                    op_elem.append('<option id="' + data.name + '"' + 'value="' + data.name +'" >' + data.name + ' - ' + data.start + '</option>');
-                }
-                op_elem.prop('selectedIndex', op_elem.find('option').length-1).change();
-                refresh();
-            }
-            let batch = buildOperationObject();
-            restRequest('POST', batch, handleStartAction, '/plugin/mock/batch');
-        }
-
-        function buildOperationObject() {
-            let name = document.getElementById("queueName").value;
-            if(!name){ alert('Please enter a batch name'); return; }
-            return {
-                "name":name,
-                "number":document.getElementById("queueNumber").value,
-                "group":document.getElementById("queueGroup").value,
-                "adversary_id":document.getElementById("queueFlow").value,
-                "planner":document.getElementById("queuePlanner").value,
-                "phases_enabled":document.getElementById("queuePhasesEnabled").value,
-                "source":document.getElementById("queueSource").value
-            };
-        }
-
-        function toggleBatchView(){
-            $('#viewBatch').toggle();
-            $('#addBatch').toggle();
-            if ($('#togBtnOp').is(':checked')) {
-                showHide('.queueOption', '#batch-list');
-            } else {
-                showHide('#batch-list', '.queueOption');
-            }
-        }
-
-        let refreshInterval = null;
-
-        function refresh() {
-            function batchCallback(data){
-                let batch = data[0];
-                let finished = 0;
-                $.each(batch.operations, function(index, op) {
-                    if(op.finish) {
-                        finished += 1;
-                    }
-                });
-                $('#batch-charts').empty();
-                $('#batch-name').html(batch.name);
-                $('#batch-number').html(finished + ' of ' + batch.operations.length + ' operations completed');
-                $.each(batch.charts, function(index, chart) {
-                    $('#batch-charts').append('<li>'+chart+'</li>');
-                });
-                if(finished === batch.operations.length) {
-                    clearInterval(refreshInterval);
-                    refreshInterval = null;
-                } else {
-                    if(!refreshInterval) {
-                        refreshInterval = setInterval(refresh, 10000);
-                    }
-                }
-            }
-            let selected = $('#batch-list option:selected').attr('value');
-            let postData = selected ? {'index':'batches','name': selected} : null;
-            restRequest('POST', postData, batchCallback, '/plugin/chain/full');
-        }
-    </script>
 </html>
