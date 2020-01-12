@@ -82,13 +82,13 @@ class SimulationService(BaseService):
     """ PRIVATE """
 
     async def _run_batch(self, batch, data):
-        agents = await self.get_service('data_svc').locate('agents', match=dict(group='simulation'))
+        agents = await self.get_service('data_svc').locate('agents', match=dict(group=data.pop('group')))
         planner = await self.get_service('data_svc').locate('planners', match=dict(name=data.pop('planner')))
         sources = await self.get_service('data_svc').locate('sources', match=dict(name=data.pop('source')))
         adv = await self.get_service('data_svc').locate('adversaries', match=dict(adversary_id=data.pop('adversary_id')))
 
         for op in range(int(data.get('number'))):
-            operation = Operation(name='%s-%s' % (batch.name, self.generate_name(size=6)), jitter=data.get('jitter'),
+            operation = Operation(name='%s-%s' % (batch.name, self.generate_name(size=6)), jitter='1/2',
                                   adversary=copy.deepcopy(adv[0]), planner=planner[0], agents=agents,
                                   source=next(iter(sources), None), phases_enabled=bool(int(data.get('phases_enabled'))))
             operation.set_start_details()
@@ -139,7 +139,8 @@ class SimulationService(BaseService):
             search_set.append([v, extract])
         return search_set
 
-    async def _target_response(self, used_variables, response_object):
+    @staticmethod
+    async def _target_response(used_variables, response_object):
         computable = dict()
         for entry in response_object:
             computable[entry.variable_trait] = {entry.variable_value: [entry.response, entry.status]}

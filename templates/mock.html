@@ -62,7 +62,7 @@
                     </label>
                   </div>
                   <p class="section-description">
-                      A batch is a set of n-number of operations. Run a batch to test out different planners and
+                      A batch is a set of n-operations, which run asynchronously. Run a batch to test out different planners and
                       understand how they compare against each other.
                   </p>
                   <div id="viewBatch">
@@ -77,6 +77,12 @@
                   <div id="addBatch" style="display: none">
                       <input id="queueName" placeholder="Batch name"/>
                       <input id="queueNumber" placeholder="Number of operations to run"/>
+                      <select name="host" id="queueGroup">
+                        <option value="" disabled selected>Please select a group</option>
+                        {% for g in groups %}
+                            <option id="qgroup-{{ g }}" value="{{ g }}">{{ g }}</option>
+                        {% endfor %}
+                      </select>
                       <select name="work" id="queueFlow">
                         <option value="" disabled selected>Please select an adversary</option>
                         {% for adv in adversaries %}
@@ -97,7 +103,6 @@
                         <option value="1" selected>Enable Phases</option>
                         <option value="0">Disable Phases</option>
                       </select>
-                      <input name="jitter" id="queueJitter" placeholder="Jitter (min/max) sec"/>
                       <button id="opBtn" type="button"
                           class="button-success atomic-button" onclick="handleStart()">Start
                       </button>
@@ -141,31 +146,14 @@
 
         function buildOperationObject() {
             let name = document.getElementById("queueName").value;
-            if(!name){ alert('Please enter an operation name'); return; }
-
-            let jitter = document.getElementById("queueJitter").value || "4/8";
-            try {
-                let [jitterMin, jitterMax] = jitter.split("/");
-                jitterMin = parseInt(jitterMin);
-                jitterMax = parseInt(jitterMax);
-                if(!jitterMin || !jitterMax){
-                    throw true;
-                }
-                if(jitterMin >= jitterMax){
-                    alert('Jitter MIN must be less than the jitter MAX.');
-                    return;
-                }
-            } catch (e) {
-                alert('Jitter must be of the form "min/max" (e.x. 4/8)');
-                return;
-            }
+            if(!name){ alert('Please enter a batch name'); return; }
             return {
                 "name":name,
                 "number":document.getElementById("queueNumber").value,
+                "group":document.getElementById("queueGroup").value,
                 "adversary_id":document.getElementById("queueFlow").value,
                 "planner":document.getElementById("queuePlanner").value,
                 "phases_enabled":document.getElementById("queuePhasesEnabled").value,
-                "jitter":jitter,
                 "source":document.getElementById("queueSource").value
             };
         }
