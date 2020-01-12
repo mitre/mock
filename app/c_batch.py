@@ -7,7 +7,7 @@ from io import BytesIO
 from app.utility.base_object import BaseObject
 
 
-class Trial(BaseObject):
+class Batch(BaseObject):
 
     @property
     def unique(self):
@@ -24,10 +24,10 @@ class Trial(BaseObject):
         self.operations = []
 
     def store(self, ram):
-        existing = self.retrieve(ram['trials'], self.unique)
+        existing = self.retrieve(ram['batches'], self.unique)
         if not existing:
-            ram['trials'].append(self)
-            return self.retrieve(ram['trials'], self.unique)
+            ram['batches'].append(self)
+            return self.retrieve(ram['batches'], self.unique)
 
     """ PRIVATE """
 
