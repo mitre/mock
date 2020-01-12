@@ -1,8 +1,5 @@
-.batch-charts {
-
-}
-.batch-charts img {
-    border-radius: 5px;
-    width: 48%;
-    height: auto;
+.batch-results {
+    width: 100%;
+    color: white;
+    text-align: center;
 }
