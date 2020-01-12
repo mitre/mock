@@ -20,9 +20,9 @@ class SimulationApi:
         adversaries = [a.display for a in await self.data_svc.locate('adversaries')]
         sources = [s.display for s in await self.data_svc.locate('sources')]
         planners = [p.display for p in await self.data_svc.locate('planners')]
-        trials = [t.display for t in await self.data_svc.locate('trials')]
+        batches = [t.display for t in await self.data_svc.locate('batches')]
         return dict(scenarios=simulations, adversaries=adversaries, sources=sources, planners=planners,
-                    trials=trials, loaded_scenario=loaded_scenario)
+                    batches=batches, loaded_scenario=loaded_scenario)
 
     @check_authorization
     async def scenarios(self, request):
@@ -31,7 +31,7 @@ class SimulationApi:
         return web.Response()
 
     @check_authorization
-    async def run_trial(self, request):
+    async def run_batch(self, request):
         data = dict(await request.json())
-        trial = await self.services.get('simulation_svc').run_trial(data)
-        return web.json_response(trial.display)
+        batch = await self.services.get('simulation_svc').run_batch(data)
+        return web.json_response(batch.display)

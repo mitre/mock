@@ -15,7 +15,7 @@ async def enable(services):
     app = services.get('app_svc').application
     app.router.add_static('/mock', 'plugins/mock/static/', append_version=True)
     await services.get('data_svc').apply(collection='simulations')
-    await services.get('data_svc').apply(collection='trials')
+    await services.get('data_svc').apply(collection='batches')
 
     await _load_scenarios(services)
 
@@ -27,7 +27,7 @@ async def enable(services):
 
     app.router.add_route('GET', '/plugin/mock/gui', SimulationApi(services).landing)
     app.router.add_route('POST', '/plugin/mock/scenario', SimulationApi(services).scenarios)
-    app.router.add_route('POST', '/plugin/mock/trial', SimulationApi(services).run_trial)
+    app.router.add_route('POST', '/plugin/mock/batch', SimulationApi(services).run_batch)
 
 
 async def _load_scenarios(services):
