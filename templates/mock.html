@@ -1,3 +1,4 @@
+<script src="/gui/js/shared.js"></script>
 <html>
     <head>
         <title>Mock | simulation environment</title>
@@ -16,6 +17,7 @@
     </div>
 
     <div class="row-canvas">
+
         <div class="section-profile">
             <div class="row">
                 <div class="column" style="flex:35%;">
@@ -27,8 +29,7 @@
                     <p style="width: 75%;font-size:14px;">
                         Simulation scenarios provide mock ability responses - per agent - during a running
                         operation. Use scenarios to test planners, as well as see how an attacker may make decisions
-                        if they face specific defensive measures. Only one scenario can be applied at a time.
-                        Apply a scenario and run an operation that uses any of the simulated agents.
+                        if they face specific defensive measures. Apply a scenario and run an operation.
                     </p>
                     <select id="scenarios" style="width: 20%">
                       <option value="" disabled selected>Select a scenario</option>
@@ -49,9 +50,9 @@
             </div>
         </div>
 
-        </center>
+    </div>
+    </center>
     </body>
     <script src="/mock/js/mock.js"></script>
-    <script src="/gui/js/shared.js"></script>
     <script src="/gui/jquery/jquery.js"></script>
 </html>

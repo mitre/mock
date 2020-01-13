@@ -1,12 +1,11 @@
 import asyncio
 import json
-import traceback
 import re
-
+import traceback
 from random import randint
 
-from app.utility.base_service import BaseService
 from app.objects.c_agent import Agent
+from app.utility.base_service import BaseService
 
 
 class SimulationService(BaseService):
@@ -38,12 +37,9 @@ class SimulationService(BaseService):
         while True:
             try:
                 await self.contact_svc.handle_heartbeat(agent.paw, agent.platform, agent.server, agent.group,
-                                                        agent.host,
-                                                        agent.username, agent.executors, agent.architecture,
-                                                        agent.location,
-                                                        agent.pid, agent.ppid, await agent.calculate_sleep(),
-                                                        agent.privilege,
-                                                        agent.c2,
+                                                        agent.host, agent.username, agent.executors, agent.architecture,
+                                                        agent.location, agent.pid, agent.ppid,
+                                                        await agent.calculate_sleep(), agent.privilege, agent.c2,
                                                         agent.exe_name)
                 instructions = json.loads(await self.contact_svc.get_instructions(agent.paw))
                 for i in instructions:
@@ -117,7 +113,8 @@ class SimulationService(BaseService):
             search_set.append([v, extract])
         return search_set
 
-    async def _target_response(self, used_variables, response_object):
+    @staticmethod
+    async def _target_response(used_variables, response_object):
         computable = dict()
         for entry in response_object:
             computable[entry.variable_trait] = {entry.variable_value: [entry.response, entry.status]}
