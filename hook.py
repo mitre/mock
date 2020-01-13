@@ -16,7 +16,7 @@ async def enable(services):
     all_agents = [a for a in services.get('data_svc').strip_yml('plugins/mock/conf/agents.yml')[0]]
     await services.get('data_svc').apply(collection='simulations')
     await _load_simulations(services)
-    simulation_svc = SimulationService(services, all_agents, loaded_scenario='hunter')
+    simulation_svc = SimulationService(services, all_agents, loaded_scenario='alice')
     agents = [a for a in all_agents if a['enabled']]
     for a in agents:
         await simulation_svc.start_agent(a)
