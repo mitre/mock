@@ -1,8 +1,0 @@
-paws:
-  - paw: 6511
-    variables:
-      - trait: default
-        value: default
-        status: 0
-        response: |
-         vm shutdown
