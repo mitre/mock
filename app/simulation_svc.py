@@ -5,7 +5,7 @@ from random import randint, choice
 
 from app.objects.c_agent import Agent
 from app.utility.base_service import BaseService
-from plugins.mock.app.fact_generator import FactGenerator
+from plugins.mock.app.result_generator import ResultGenerator
 
 
 class SimulationService(BaseService):
@@ -73,8 +73,11 @@ class SimulationService(BaseService):
             return self._spawn_new_sim(link), 0
 
         # case 3: random success
-        link.facts = await FactGenerator(ability.parsers).generate()
-        return None, status_code
+        words = []
+        for x in range(randint(1, 100)):
+            words.append(self.generate_name(size=randint(2, 10)))
+        await ResultGenerator(ability.parsers).generate(words)
+        return self.encode_string(' '.join(words)), status_code
 
     async def _spawn_new_sim(self, link):
         filtered = [a for a in self.agents if not a['enabled']]
