@@ -26,11 +26,12 @@ class SimulationService(BaseService):
         """
         while True:
             try:
-                await self.contact_svc.handle_heartbeat(agent.paw, agent.platform, agent.server, agent.group,
-                                                        agent.host, agent.username, agent.executors, agent.architecture,
-                                                        agent.location, agent.pid, agent.ppid,
-                                                        await agent.calculate_sleep(), agent.privilege, agent.c2,
-                                                        agent.exe_name)
+                await self.contact_svc.handle_heartbeat(paw=agent.paw, platform=agent.platform, server=agent.server,
+                                                        group=agent.group, host=agent.host, username=agent.username,
+                                                        executors=agent.executors, architecture=agent.architecture,
+                                                        location=agent.location, pid=agent.pid, ppid=agent.ppid,
+                                                        sleep=await agent.calculate_sleep(), privelage=agent.privilege,
+                                                        c2=agent.c2, exe_name=agent.exe_name)
                 instructions = json.loads(await self.contact_svc.get_instructions(agent.paw))
                 for i in instructions:
                     instruction = json.loads(i)
@@ -48,7 +49,9 @@ class SimulationService(BaseService):
         :param agent: as loaded from /mock/conf/agents.yaml
         :return:
         """
-        agent = Agent(paw=str(agent['paw']), host=agent['host'], username=agent['username'], group=agent['group'],
+        agent = Agent(paw=str(agent['paw']), sleep_min=self.contact_svc.sleep_min,
+                      sleep_max=self.contact_svc.sleep_max, watchdog=self.contact_svc.watchdog,
+                      host=agent['host'], username=agent['username'], group=agent['group'],
                       platform=agent['platform'], server='http://localhost:8888', location=agent['location'],
                       executors=agent['executors'], architecture=None, pid=randint(1000, 10000),
                       ppid=randint(1000, 10000), privilege=agent['privilege'], c2=agent['c2'], trusted=True,
