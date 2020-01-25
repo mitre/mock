@@ -26,11 +26,8 @@ class SimulationService(BaseService):
         """
         while True:
             try:
-                await self.contact_svc.handle_heartbeat(agent.paw, agent.platform, agent.server, agent.group,
-                                                        agent.host, agent.username, agent.executors, agent.architecture,
-                                                        agent.location, agent.pid, agent.ppid,
-                                                        await agent.calculate_sleep(), agent.privilege, agent.c2,
-                                                        agent.exe_name)
+                beat = dict(paw=agent.paw)
+                await self.contact_svc.handle_heartbeat(**beat)
                 instructions = json.loads(await self.contact_svc.get_instructions(agent.paw))
                 for i in instructions:
                     instruction = json.loads(i)
@@ -52,7 +49,7 @@ class SimulationService(BaseService):
                       platform=agent['platform'], server='http://localhost:8888', location=agent['location'],
                       executors=agent['executors'], architecture=None, pid=randint(1000, 10000),
                       ppid=randint(1000, 10000), privilege=agent['privilege'], c2=agent['c2'], trusted=True,
-                      exe_name=agent['exe_name'])
+                      exe_name=agent['exe_name'], sleep_min=30, sleep_max=60, watchdog=0)
         await self.data_svc.store(agent)
         agent.sleep_min = agent.sleep_max = randint(15, 25)
         loop = asyncio.get_event_loop()
