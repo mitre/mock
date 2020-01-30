@@ -29,9 +29,9 @@ class SimulationService(BaseService):
                 beat = dict(paw=agent.paw)
                 _, instructions = await self.contact_svc.handle_heartbeat(**beat)
                 for instruction in instructions:
-                    response, status = await self._generate_simulated_response(instruction['id'])
-                    await self.contact_svc.save_results(instruction['id'], response, status, agent.pid)
-                    await asyncio.sleep(instruction['sleep'])
+                    response, status = await self._generate_simulated_response(instruction.id)
+                    await self.contact_svc.save_results(instruction.id, response, status, agent.pid)
+                    await asyncio.sleep(instruction.sleep)
                 await asyncio.sleep(await agent.calculate_sleep())
                 agent = (await self.data_svc.locate('agents', match=dict(paw=str(agent.paw))))[0]
             except Exception:
