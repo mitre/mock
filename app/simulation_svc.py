@@ -28,11 +28,10 @@ class SimulationService(BaseService):
             try:
                 beat = dict(paw=agent.paw)
                 _, instructions = await self.contact_svc.handle_heartbeat(**beat)
-                for i in json.loads(instructions):
-                    instruction = json.loads(i)
-                    response, status = await self._generate_simulated_response(instruction['id'])
-                    await self.contact_svc.save_results(instruction['id'], response, status, agent.pid)
-                    await asyncio.sleep(instruction['sleep'])
+                for instruction in instructions:
+                    response, status = await self._generate_simulated_response(instruction.id)
+                    await self.contact_svc.save_results(instruction.id, response, status, agent.pid)
+                    await asyncio.sleep(instruction.sleep)
                 await asyncio.sleep(await agent.calculate_sleep())
                 agent = (await self.data_svc.locate('agents', match=dict(paw=str(agent.paw))))[0]
             except Exception:
@@ -47,7 +46,7 @@ class SimulationService(BaseService):
         agent = Agent(paw=str(agent['paw']), host=agent['host'], username=agent['username'], group=agent['group'],
                       platform=agent['platform'], server='http://localhost:8888', location=agent['location'],
                       executors=agent['executors'], architecture=None, pid=randint(1000, 10000),
-                      ppid=randint(1000, 10000), privilege=agent['privilege'], c2=agent['c2'], trusted=True,
+                      ppid=randint(1000, 10000), privilege=agent['privilege'], trusted=True,
                       exe_name=agent['exe_name'], sleep_min=30, sleep_max=60, watchdog=0)
         await self.data_svc.store(agent)
         loop = asyncio.get_event_loop()
