@@ -27,9 +27,8 @@ class SimulationService(BaseService):
         while True:
             try:
                 beat = dict(paw=agent.paw)
-                await self.contact_svc.handle_heartbeat(**beat)
-                instructions = json.loads(await self.contact_svc.get_instructions(agent.paw))
-                for i in instructions:
+                _, instructions = await self.contact_svc.handle_heartbeat(**beat)
+                for i in json.loads(instructions):
                     instruction = json.loads(i)
                     response, status = await self._generate_simulated_response(instruction['id'])
                     await self.contact_svc.save_results(instruction['id'], response, status, agent.pid)
