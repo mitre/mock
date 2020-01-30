@@ -1,5 +1,4 @@
 import asyncio
-import json
 import traceback
 from random import randint, choice
 
