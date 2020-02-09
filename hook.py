@@ -3,6 +3,7 @@ from plugins.mock.app.simulation_svc import SimulationService
 name = 'Mock'
 description = 'Simulated scenarios for testing operations without requiring deployed agents'
 address = None
+authentication = 'red'
 
 
 async def enable(services):
