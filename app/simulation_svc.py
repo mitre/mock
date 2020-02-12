@@ -30,8 +30,8 @@ class SimulationService(BaseService):
                 _, instructions = await self.contact_svc.handle_heartbeat(**beat)
                 for instruction in instructions:
                     response, status = await self._generate_simulated_response(instruction.id)
-                    result = Result(instruction.id, response, status, agent.pid)
-                    await self.contact_svc.handle_heartbeat(agent.paw, result=result)
+                    result = dict(id=instruction.id, output=response, status=status, pid=agent.pid)
+                    await self.contact_svc.handle_heartbeat(paw=agent.paw, result=result)
                     await asyncio.sleep(instruction.sleep)
                 await asyncio.sleep(await agent.calculate_sleep())
                 agent = (await self.data_svc.locate('agents', match=dict(paw=str(agent.paw))))[0]
