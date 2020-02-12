@@ -3,7 +3,6 @@ import traceback
 from random import randint, choice
 
 from app.objects.c_agent import Agent
-from app.objects.secondclass.c_result import Result
 from app.utility.base_service import BaseService
 from plugins.mock.app.result_generator import ResultGenerator
 
