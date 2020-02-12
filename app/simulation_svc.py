@@ -3,6 +3,7 @@ import traceback
 from random import randint, choice
 
 from app.objects.c_agent import Agent
+from app.objects.secondclass.c_result import Result
 from app.utility.base_service import BaseService
 from plugins.mock.app.result_generator import ResultGenerator
 
@@ -29,7 +30,8 @@ class SimulationService(BaseService):
                 _, instructions = await self.contact_svc.handle_heartbeat(**beat)
                 for instruction in instructions:
                     response, status = await self._generate_simulated_response(instruction.id)
-                    await self.contact_svc.save_results(instruction.id, response, status, agent.pid)
+                    result = Result(instruction.id, response, status, agent.pid)
+                    await self.contact_svc.handle_heartbeat(agent.paw, result=result)
                     await asyncio.sleep(instruction.sleep)
                 await asyncio.sleep(await agent.calculate_sleep())
                 agent = (await self.data_svc.locate('agents', match=dict(paw=str(agent.paw))))[0]
