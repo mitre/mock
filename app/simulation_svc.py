@@ -47,7 +47,7 @@ class SimulationService(BaseService):
                       platform=agent['platform'], server='http://localhost:8888', location=agent['location'],
                       executors=agent['executors'], architecture=None, pid=randint(1000, 10000),
                       ppid=randint(1000, 10000), privilege=agent['privilege'], trusted=True,
-                      exe_name=agent['exe_name'], sleep_min=30, sleep_max=60, watchdog=0)
+                      exe_name=agent['exe_name'], sleep_min=30, sleep_max=60, watchdog=0, contact=agent['c2'])
         await self.data_svc.store(agent)
         loop = asyncio.get_event_loop()
         loop.create_task(self.run(agent))
