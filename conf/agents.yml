@@ -8,7 +8,7 @@
   location: C:\Users\Public
   enabled: True
   privilege: User
-  c2: HTTP
+  c2: http
   exe_name: sandcat.exe
   executors:
     - pwsh
@@ -22,7 +22,7 @@
   location: /tmp
   enabled: True
   privilege: Elevated
-  c2: HTTP
+  c2: http
   exe_name: sandcat.sh
   executors:
     - sh
@@ -35,7 +35,7 @@
   location: /tmp
   enabled: True
   privilege: User
-  c2: HTTP
+  c2: http
   exe_name: sandcat.sh
   executors:
     - sh
@@ -48,7 +48,7 @@
   location: C:\Users\Public
   enabled: False
   privilege: Elevated
-  c2: HTTP
+  c2: http
   exe_name: sandcat.exe
   executors:
     - pwsh
@@ -62,7 +62,7 @@
   location: /tmp
   enabled: False
   privilege: User
-  c2: HTTP
+  c2: http
   exe_name: sandcat.sh
   executors:
     - sh
@@ -75,7 +75,7 @@
   location: /tmp
   enabled: False
   privilege: User
-  c2: HTTP
+  c2: http
   exe_name: sandcat.sh
   executors:
     - sh
@@ -88,7 +88,7 @@
   location: /tmp
   enabled: True
   privilege: User
-  c2: HTTP
+  c2: http
   exe_name: sandcat.sh
   executors:
     - sh
@@ -101,7 +101,7 @@
   location: C:\Users\Public
   enabled: True
   privilege: User
-  c2: HTTP
+  c2: http
   exe_name: sandcat.exe
   executors:
     - pwsh
@@ -115,7 +115,7 @@
   location: C:\Users\Public
   enabled: False
   privilege: User
-  c2: HTTP
+  c2: http
   exe_name: sandcat.exe
   executors:
     - pwsh
@@ -129,7 +129,7 @@
   location: C:\Users\Public
   enabled: False
   privilege: User
-  c2: HTTP
+  c2: http
   exe_name: sandcat.exe
   executors:
     - pwsh
