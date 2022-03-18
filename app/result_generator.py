@@ -14,6 +14,8 @@ class ResultGenerator(BaseWorld):
         }
 
     async def generate(self, words):
+        if self.parser is None:
+            return
         for parser in self.parser:
             for cfg in parser.parserconfigs:
                 for _ in range(random.randint(1, 5)):
