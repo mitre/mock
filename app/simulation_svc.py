@@ -70,11 +70,7 @@ class SimulationService(BaseService):
         words = []
         for x in range(randint(1, 100)):
             words.append(self.generate_name(size=randint(2, 10)))
-        try:
-            parser = ability.parser
-        except AttributeError:  # the ability has no parser
-            parser = []
-        await ResultGenerator(parser).generate(words)
+        await ResultGenerator(getattr(ability, 'parser', [])).generate(words)
         return self.encode_string(' '.join(words)), status_code
 
     async def _spawn_new_sim(self, link):
